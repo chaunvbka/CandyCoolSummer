@@ -1,0 +1,23 @@
+.unity-progress-bar__background {
+    background-color: rgb(0, 127, 217);
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+}
+
+.unity-progress-bar__progress {
+    background-color: rgb(103, 48, 0);
+}
+
+.unity-progress-bar__container {
+    flex-grow: 1;
+    min-height: auto;
+    max-height: none;
+}
+
+.unity-progress-bar__title {
+    color: rgb(255, 255, 255);
+    font-size: 40px;
+    -unity-font-definition: resource('Fonts/Roboto-Medium');
+}

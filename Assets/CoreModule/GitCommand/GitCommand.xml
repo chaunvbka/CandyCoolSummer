@@ -1,0 +1,491 @@
+<1> Create new git repository from local.
+- Create a directory to contain the project.
+- Go into the new directory.
+- In terminal: git init (git init -b <branch-name>, | --initial-branch=<branch-name>)
+
+<2> Connect local repo to remote repo
+- Create remote repository from github.com
+- Add remote repository to local repository: 
+git remote add <remote-name> <url>
+
+- Add command on Windows platform:
+git config core.autocrlf false
+git config --global core.autocrlf false
+(Prevent: LF will be replaced by CRLF the next time Git touches it)
+
+- Pull from remote to local before commit and push
+ git pull <remote_name> <remote_branch_name>
+ git pull origin main
+
+<3> Push to remote:
+git add .
+git commit -m "message"
+git push -u origin <branch>
+
+- To push changes current tag to HEAD remote repository:
+git push <remote-name> HEAD:refs/heads/<branch-name>
+
+<4> git fetch
+- Download commits, files, and refs from a remote repository into local repository.
+git fetch origin
+git fetch --all
+git fetch origin master
+
+- Displaying the commit logs in a compact, single-line format.
+git log --oneline
+git log --oneline origin/master
+
+- Fetch all tags from the remote repository:
+git fetch --tags:
+
+<5> git merge
+- Switch to the branch you want to merge into
+git checkout <current-branch>
+
+- Merge the changes from the <feature-branch> into the <current-branch>
+git merge <feature-branch>
+
+- Handling Merge Conflicts
+# Resolve conflicts in the conflicted-file
+# Add the resolved-file to the staging area
+git add resolved-file
+
+# Complete the merge by committing the changes
+git commit
+
+<5.1> Resolve conflic detail
+- In <conflicted-file>:
+<<<<<<< HEAD
+Part_1 in current working tree which is difference from remote repository.
+=======
+Part_2 pull from remote repository which is difference from Part_1 in current working tree.
+>>>>>>> 23563ef
+
+-Resolve:
+Accept Part_1 or Part_2 or both Part_1 and Path_2 for <conflicted-file>
+git add <conflicted-file-resolved>
+git commit -m "Resolve conflic complete in file <conflicted-file-resolved>"
+git push
+
+<6> git pull
+git pull [<options>] [<repository> [<refspec>…​]]
+
+# The git 'pull command' is used to fetch and integrate changes from a remote repository 
+into the current branch. It combines the functionalities of 'git fetch' and 'git merge'.
+
+- To pull changes from the default remote repository and merge them into the current branch:
+git pull origin master
+
+- Merge vs. Rebase: Using --rebase keeps your commit history linear, 
+while a regular pull creates a merge commit.
+
+- Force Pull: Use git pull --force with caution as it can overwrite local changes.
+
+<7> git push
+git push [<repository>] [<refspec>...]
+
+- Sets the upstream tracking branch:
+git push -u <remote-name> <branch-name>
+
+- To push after setting the upstream branch:
+git push
+
+- To forcefully push changes, use the --force or -f flag:
+git push <remote-name> --force  <branch-name>
+
+- To delete a branch on the remote repository,  use the --delete option:
+git push <remote-name> --delete  <branch-name>
+
+- To push all branches to the remote repository, use the --all option:
+git push <remote-name> --all
+
+- To push a specific tag to the remote repository:
+git push <remote-name> <tag-name>
+
+- To push all tags to the remote repository, use the --tags option:
+git push <remote-name> --tags
+
+- To simulate a push without actually sending any data to the remote repository, 
+use the --dry-run option:
+git push <remote-name> --dry-run
+
+<8> HEAD
+# A reference to a commit object.
+# You can think of the HEAD as the "current branch". When you switch branches with git checkout, 
+the HEAD revision changes to point to the top of the new branch.
+
+- You can see what HEAD points to by doing:
+cat .git/HEAD
+
+<9> git tag
+- List the tags in the repository:
+git tag
+git tag -l
+
+- To create a tag for the current commit:
+git tag <tag-name>
+Example:
+git tag v1.0
+
+- To create a tag for a specific commit:
+git tag <tag-name> <commit-hash>
+
+- To create an annotated tag, use the -a option and provide a message with the -m option:
+git tag <tag_name> -a -m "message"
+
+- To push a tag to a remote repository:
+git push <remote-name> <tag-name>
+
+- To push all tags to a remote repository:
+git push <remote-name> --tags
+
+- To delete a tag:
+git tag --delete(-d) <tag-name>
+git push --delete <remote-name> <tag-name>
+
+- To rename a tag on remote repository:
+git tag <new-tag-name> <old-tag-name> # Create a new tag with the new name.
+git tag -d <old-tag-name> # Delete the old tag locally.
+git push <remote-name> <new-tag-name> :<old-tag-name> # Push the new tag to the remote repository and delete the old tag.
+
+<9> Retrieving the Current Commit Hash in Git
+- To retrieve the current commit hash in Git, use the following command:
+git rev-parse HEAD
+git show -s --format=%H
+git log -n 1 --format=format:"%H"
+
+- Shortened Commit Hash:
+git rev-parse --short HEAD
+
+<10> git checkout
+# Switch branches or restore working tree files.
+- To switch to a branch:
+git checkout <branch-name>
+
+- To create a new branch and switch to it:
+git checkout -b <branch-name>
+
+- To restore a file to the state at a specific commit:
+git checkout <commit-hash> -- <file-name>
+
+- To restore all files to the state at a specific commit:
+git checkout <commit-hash> -- .
+
+- To restore a file to the state in the last commit:
+git checkout -- <file-name>
+
+- To restore all files to the state in the last commit:
+git checkout -- .
+
+- To restore a file to the state in the staging area:
+git checkout -- <file-name>
+
+- To restore all files to the state in the staging area:
+git checkout -- .
+
+- To restore a file to the state in the working directory:
+git checkout HEAD -- <file-name>
+
+- To restore all files to the state in the working directory:
+git checkout HEAD -- .
+
+- To restore a file to the state in the index:
+git checkout -- <file-name>
+
+- To restore all files to the state in the index:
+git checkout -- .
+
+- Detaching HEAD:
+git checkout --detach HEAD~2
+
+- Forcing a checkout: 
+git checkout -f <branch-name>
+
+- Merging changes:
+git checkout -m <branch-name>
+
+- Checking out a tag:
+git checkout <tag-name>
+
+- Creating a branch from a Tag:
+git checkout -b <branch-name> <tag-name>
+
+- Checking out a commit:
+git checkout <commit-hash>
+
+- Checking out a remote branch:
+git checkout -b <branch-name> origin/<branch-name>
+
+- Checkout the latest tag into a new branch:
+git checkout -b <new-branch-name> $<latestTag>
+
+- Working with Remote Tags:
+git fetch --tags
+git checkout <tag-name>
+Then create a new branch from a remote tag:
+git checkout -b <new-branch-name> <tag-name>
+
+<11> git branch
+# List, create, or delete branches.
+- To creates a new branch pointing to the current commit:
+git branch <branch-name>
+
+- To create a new <remote-branch-name> and push current working directory to it:
+git push <remote-name> HEAD:<remote-branch-name>
+
+- To delete <remote-branch-name> from remote repository:
+git push <remote-name> --delete <remote-branch-name>
+
+- To create a new branch and switch to it immediately:
+git switch -c <branch-name>
+git checkout -b <branch-name>
+
+- To delete a branch:
+git branch -d <branch-name>
+
+- To force delete a branch:
+git branch -D <branch-name>
+
+- To set the upstream branch for the current branch:
+This sets the tracking information so that 'git pull' will appropriately merge from 
+the upstream branch.
+git branch --set-upstream-to=<upstream>
+
+- To rename a branch:
+If the new branch name already exists, use the -M option to force the rename.
+git branch -m <old-branch-name> <new-branch-name>
+
+- To list local branch:
+git branch
+git branch -l
+
+- To list remote-tracking branches:
+git branch -r
+
+- To list all branches, including remote-tracking branches:
+git branch -a
+
+- To rename a remote Git Branch:
+# Step 1: Delete the Old Remote Branch
+git push <remote-name> --delete <old-branch-name>
+
+# Step 2: Push the New Remote Branch
+git push <remote-name> <new-branch-name>
+
+<12> git log
+# Displaying the commit logs in a compact, single-line format.
+git log --oneline
+
+- Log x HEAD on current branch:
+git log --oneline -x
+
+- Displaying all commits in the current branch:
+git log --all
+
+- Exit git log: press the q key.
+
+
+<13> git remote 
+- To list all the remotes associated with the repository:
+git remote
+
+- To list remotes with their URLs:
+git remote -v
+
+- To add a new remote repository:
+git remote add <remote-name> <url>
+
+Example:
+git remote add origin https://github.com/user/repo.git
+
+- To remove a remote:
+git remote remove <remote-name>
+
+Example:
+git remote remove origin
+
+- To rename a remote:
+git remote rename <old-name> <new-name>
+Example:
+git remote rename origin upstream
+
+- To fetch updates from a remote repository:
+git fetch <remote-name>
+
+- To change the URL of a remote repository:
+git remote set-url <remote-name> <new-url>
+
+- To set or delete the default branch for a remote:
+git remote set-head <remote-name> (-a | --auto | -d | --delete | <branch>)
+
+- To fetch updates for all remotes:
+git remote update
+
+- Displaying information about a remote:
+git remote show <remote-name>
+Example:
+git remote show origin
+
+
+<14> git submodule
+- Clone repo with submodule:
+git clone --recurse-submodules -j8 <url>
+
+- Add submodule:
+git submodule add <remote_url> <target_folder>
+
+- Remove submodule:
+git submodule deinit <submodule>
+git rm <submodule>
+
+- Shows the SHA-1 of the currently checked-out commit for each submodule, 
+along with the submodule path:
+git submodule status
+
+- Pull a Git Submodule: (In parent local repository)
+Allow git clone submodule to local repo, and auto checkout to HEAD:
+git submodule update --init --recursive
+
+Update Git submodule with latest commit.
+git submodule update --remote --merge
+
+- Push new commit to submodule:
+cd <submodule-folder>
+git checkout <branch-name>
+git add .
+git commit -m "New update to <submodule-folder>"
+git push <remote-name> <branch-name>
+
+<15> git reset
+- Move the repository back to a previous commit, discarding any changes made after that commit:
+(<commit-hash> being the first 7 characters of the commit hash we found in the log)
+git log --oneline
+git reset <commit-hash> 
+
+- Undo changes in your working directory and get back to a specific commit while 
+discarding all the commits made after that one:
+git reset --hard <commit-hash>
+Example:
+git reset --hard 5f3a2e8 (discarding all the commits made after 5f3a2e8)
+git reset --hard HEAD~1 (undo the last commit)
+
+- Move HEAD to a previous commit HEAD~1, keeping lastest commit (HEAD) in staging area:
+git reset --soft HEAD~1 
+
+- Show only name of changed files:
+git diff --name-only
+
+- Show list of staged files:
+git diff --name-only --cached
+
+- Stage all changes:
+git add .
+
+- Unstage a file:
+git reset <path--file-name> (GitCommand/GitCommand.xml)
+
+- Unstage all changes for all files:
+git reset
+
+
+<16> git revert
+- Revert the changes specified by the fourth last commit in HEAD and 
+create a new commit with the reverted changes: 
+git revert HEAD~3
+
+- Exit the "reverting" state:
+git revert --abort
+
+- Continue the "reverting" process after resolving conflicts:
+git revert --continue
+
+<17> git restore
+- Restore a file in the current directory to the state at the last commit:
+git restore <path--file-name>
+
+- Restore all files in the current directory to the state at the last commit:
+git restore .
+
+<18> git rm, git clean
+- Remote a file in current directory:
+git rm <path--file-name>
+
+- See the files tracked on current branch:
+git ls-tree -r master
+
+- Remove untracked files:
+git clean -f   
+
+- Removing untracked directories:
+git clean -f -d
+
+<19> git merge:
+- To merge <branch-a> to <branch-b>:
+git checkout <branch-b>
+git merge <branch-a>
+
+<20> git rebase:
+- Applying the changes from <branch-a> on top of <branch-b>:
+git checkout <branch-b>
+git rebase <branch-a>
+
+<21> git switch
+# Designed specifically to switch branches, making it clearer and safer than 'git checkout'.
+- Switch to a branch:
+git switch <branch>
+
+- Creating and switching to a <new-branch-name> from last commit:
+git switch -c <new-branch-name>
+
+- Creating and switching to a <new-branch-name> from hash commit:
+git switch -c <new-branch-name> hash
+
+- Return HEAD to hash commit:
+git switch --detach hash
+
+
+<22> git diff
+# Compare changes in code.
+- Compare working directory and staging area:
+git diff
+
+- Compare staged changes with last commit:
+git diff --staged
+
+- Compare two branches:
+git diff <branch-a> <branch-b>
+
+- Compare two commits:
+git diff <hash-commit-a> <hash-commit-b>
+
+- Compare the changes in a specific file between the last commit and the working directory:
+git diff HEAD <file-name>
+
+<23> git commit --amend
+- To amend the last commit with new changes:
+git commit --amend
+
+- To amend the last commit with a new message:
+git commit --amend -m "New commit message"
+
+- To amend the last commit without changing the commit message:
+git commit --amend --no-edit
+
+- To amend the last commit and add new changes without changing the commit message:
+git add <file-name>
+git commit --amend --no-edit
+
+<24> git show-ref
+# Displays references available in a local repository along with the associated commit IDs.
+- To show the reference of the last commit:
+git show-ref --head
+
+- To show the reference of the last commit on a specific branch:
+git show-ref --head <branch-name>
+
+- To show the reference of the last commit on all branches:
+git show-ref --head --dereference
+
+ 
+
+

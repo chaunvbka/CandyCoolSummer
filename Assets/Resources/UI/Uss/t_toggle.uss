@@ -1,0 +1,33 @@
+.unity-toggle {
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+}
+
+.unity-toggle:active .unity-toggle__checkmark {
+    -unity-background-image-tint-color: rgb(209, 56, 56);
+}
+
+.unity-toggle__checkmark {
+    align-self: center;
+    width: 50px;
+    height: 50px;
+    background-color: rgba(0, 0, 0, 0);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+}
+
+.settings__slider-group {
+    height: 50px;
+    flex-grow: 1;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    flex-direction: column;
+    align-self: center;
+}

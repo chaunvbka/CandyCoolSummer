@@ -1,0 +1,40 @@
+#pragma warning disable IDE0130
+
+namespace Texell.Processes
+{
+    using Texell.CoreModule.Model;
+    using UnityEngine;
+    using System;
+
+    public class LoadingModel : BaseModel
+    {
+        private static LoadingModel s_instance;
+        public static LoadingModel Instance => s_instance;
+
+        public LoadingModel()
+        {
+            if (s_instance == null)
+            {
+                s_instance = this;
+            }
+            else
+            {
+                Debug.LogError("LoadingModel instance already exists. Cannot create a new one.");
+            }
+        }
+
+        public event Action<float> LoadProgressUpdated;
+        public void OnLoadProgressUpdated(float value)
+        {
+            LoadProgressUpdated?.Invoke(value);
+        }
+
+        public override void Dispose()
+        {
+            if (_disposed) return;
+            _disposed = true;
+
+            s_instance = null;
+        }
+    }
+}

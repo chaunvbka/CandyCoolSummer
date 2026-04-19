@@ -1,0 +1,14 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <engine:EnumField label="Anchor Point" type="UnityEngine.TextAlignment, UnityEngine.TextRenderingModule" name="anchor-type" binding-path="_anchorType" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0;" />
+    <engine:VisualElement style="height: 80px; justify-content: center;">
+        <engine:Label text="Offset" name="Label" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; left: 2px;" />
+        <engine:VisualElement name="offset-x" style="flex-direction: row; flex-shrink: 0; width: 60%; left: 2%;">
+            <engine:FloatField label="X" value="0" name="offset" binding-path="_offsetX" style="flex-grow: 1;" />
+            <engine:EnumField type="UnityEngine.TextAlignment, UnityEngine.TextRenderingModule" name="offset-unit" binding-path="_offsetUnitX" style="flex-grow: 1;" />
+        </engine:VisualElement>
+        <engine:VisualElement name="offset-y" style="flex-direction: row; flex-shrink: 0; width: 60%; left: 2%;">
+            <engine:FloatField label="Y" value="0" name="offset" binding-path="_offsetY" style="flex-grow: 1;" />
+            <engine:EnumField type="UnityEngine.TextAlignment, UnityEngine.TextRenderingModule" name="offset-unit" binding-path="_offsetUnitY" style="flex-grow: 1;" />
+        </engine:VisualElement>
+    </engine:VisualElement>
+</engine:UXML>

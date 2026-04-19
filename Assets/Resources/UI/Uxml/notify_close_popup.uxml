@@ -1,0 +1,14 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Resources/UI/Uss/button.uss?fileID=7433441132597879392&amp;guid=334eae7345e7fb6449527fd7fa7f7f8b&amp;type=3#button" />
+    <Style src="project://database/Assets/Resources/UI/Uss/NotifyClosePopupUSS.uss?fileID=7433441132597879392&amp;guid=2cf49082ddf3d9d4fa3d08dd16088c02&amp;type=3#NotifyClosePopupUSS" />
+    <ui:VisualElement name="notify-close-popup" style="flex-grow: 1;">
+        <ui:VisualElement style="position: absolute; left: 0; right: 0; top: 50%;">
+            <ui:VisualElement name="popup-panel" class="popup-panel">
+                <ui:Button parse-escape-sequences="true" display-tooltip-when-elided="true" name="close-button" class="close-button">
+                    <ui:Label tabindex="-1" text="X" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Label" style="font-size: 40px; align-self: center; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; color: rgb(255, 255, 255); -unity-font-definition: resource(&apos;Fonts/Roboto-Regular&apos;); -unity-font-style: bold;" />
+                </ui:Button>
+                <ui:Label tabindex="-1" text="Message" parse-escape-sequences="true" display-tooltip-when-elided="true" name="message__label" class="message__label" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

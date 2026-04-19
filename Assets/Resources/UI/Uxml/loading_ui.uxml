@@ -1,0 +1,9 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Resources/UI/Uss/loading_ui.uss?fileID=7433441132597879392&amp;guid=fd15f311791d88247b6b363eccf285e0&amp;type=3#loading_ui" />
+    <ui:VisualElement name="loading-screen" style="flex-grow: 1; background-color: rgb(52, 53, 58);">
+        <ui:VisualElement style="position: absolute; left: 0; right: 0; top: 50%;">
+            <ui:Label tabindex="-1" text="LOADING" parse-escape-sequences="true" display-tooltip-when-elided="true" name="loading__label" style="font-size: 50px; color: rgb(0, 127, 217); -unity-text-align: lower-center; -unity-font-definition: resource(&apos;Fonts/Roboto-Medium&apos;); align-self: center;" />
+            <ui:ProgressBar name="loading__progress-bar" title="0%" style="width: 54%; height: 40px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; align-self: center; -unity-font-definition: resource(&apos;Fonts/Roboto-Medium&apos;);" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

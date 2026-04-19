@@ -1,0 +1,21 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Commons/UI/CustomElement/Uss/TSlider.uss?fileID=7433441132597879392&amp;guid=f251b3e21c1ae96498b69582647903e5&amp;type=3#TSlider" />
+    <Style src="project://database/Assets/Commons/UI/CustomElement/Uss/TToggle.uss?fileID=7433441132597879392&amp;guid=d520e2c434057f94ea2363c09c7d0a7b&amp;type=3#TToggle" />
+    <Style src="project://database/Assets/Commons/Audio/UI/Uss/AudioSettingsUSS.uss?fileID=7433441132597879392&amp;guid=9f23b8a08a40f3c458b7ef1928d33cfe&amp;type=3#AudioSettingsUSS" />
+    <ui:VisualElement name="audio-settings-panel" class="settings-panel">
+        <ui:VisualElement name="settings__music-slider-group" style="flex-grow: 1; justify-content: flex-start; flex-direction: row; height: 80px;">
+            <ui:Toggle name="settings__music-mute-toggle" value="true" />
+            <TSlider name="settings__music-volume-slider" class="settings__slider-group" />
+            <ui:VisualElement class="settings-volume__label-container" style="justify-content: center;">
+                <ui:Label tabindex="-1" text="100" parse-escape-sequences="true" display-tooltip-when-elided="true" name="settings__music-volume-label" class="settings-volume__label" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="settings__sfx-slider-group" style="flex-grow: 1; justify-content: flex-start; flex-direction: row; height: 80px;">
+            <ui:Toggle name="settings__sfx-mute-toggle" value="true" />
+            <TSlider name="settings__sfx-volume-slider" class="settings__slider-group" />
+            <ui:VisualElement class="settings-volume__label-container" style="justify-content: center;">
+                <ui:Label tabindex="-1" text="100" parse-escape-sequences="true" display-tooltip-when-elided="true" name="settings__sfx-volume-label" class="settings-volume__label" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
