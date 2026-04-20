@@ -1,20 +1,17 @@
+using System.Collections.Generic;
+using Texell.CandyCoolSummer;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 public class SpawnCandy : MonoBehaviour
 {
-    public GameObject BlueCandyPrefab;
-    public GameObject YellowCandyPrefab;
-    public GameObject RedCandyPrefab;
-    public GameObject GreenCandyPrefab;
-    public GameObject PurpleCandyPrefab;
-    public GameObject PinkCandyPrefab;
+    public GameObject[] CandiesForSpawn;
 
     public Tilemap TileBoard;
     /// <summary>
     /// The area covered by tiles.
     /// </summary>
-    public BoundsInt bounds;
+    public BoundsInt Bounds;
 
     /// <summary>
     /// Because of the TileAnchor set to (0.5f, 0.5f), we use Offset value to position Candies 
@@ -22,19 +19,35 @@ public class SpawnCandy : MonoBehaviour
     /// </summary>
     public Vector2 Offset = new(0.5f, 0.5f);
 
+    private readonly List<GameObject> _hintCandies = new();
+    private readonly Dictionary<CandyType, Candy> _candyLookup = new();
+
     void Start()
     {
-        BoundsInt bounds = TileBoard.cellBounds;
+        BoundsInt Bounds = TileBoard.cellBounds;
         Debug.Log("Hello");
-        foreach (var pos in bounds.allPositionsWithin)
+        foreach (var pos in Bounds.allPositionsWithin)
         {
             if (TileBoard.HasTile(pos))
             {
-                GameObject go = Instantiate(BlueCandyPrefab);
-                go.transform.position = new Vector2(pos.x + Offset.x, pos.y + Offset.y);
-
+                var candy = Instantiate(CandiesForSpawn[0]).GetComponent<Candy>();
+                candy.transform.position = new Vector2(pos.x + Offset.x, pos.y + Offset.y);
             }
+        }
+
+        //Fill a lookup of candy type to candy.
+        foreach (var candy in CandiesForSpawn)
+        {
+            var temp = candy.GetComponent<Candy>();
+            _candyLookup.Add(temp.Type, temp);
         }
     }
 
+    /// <summary>
+    /// Spawn a candy in every cell, making sure we don't have any match.
+    /// </summary>
+    public void Spawn()
+    {
+
+    }
 }

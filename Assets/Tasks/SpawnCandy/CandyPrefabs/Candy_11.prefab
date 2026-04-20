@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8132642698688429343}
   - component: {fileID: 6256493898831030229}
+  - component: {fileID: -3746599537192254889}
   m_Layer: 0
   m_Name: Candy_11
   m_TagString: Untagged
@@ -91,3 +92,16 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &-3746599537192254889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8008455337656691617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75c5651414b81f642a251beebd67287d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Texell.CandyCoolSummer.Candy
+  Type: 11

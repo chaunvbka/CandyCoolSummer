@@ -489,10 +489,32 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CandySpriteSheet_14
+      name: CandySpriteSheet_13
       rect:
         serializedVersion: 2
         x: 0
+        y: 256
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b22f15dd4b976ac10800000000000000
+      internalID: 2064471296910160427
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CandySpriteSheet_14
+      rect:
+        serializedVersion: 2
+        x: 128
         y: 256
         width: 128
         height: 128
@@ -514,7 +536,7 @@ TextureImporter:
       name: CandySpriteSheet_15
       rect:
         serializedVersion: 2
-        x: 128
+        x: 256
         y: 256
         width: 128
         height: 128
@@ -536,7 +558,7 @@ TextureImporter:
       name: CandySpriteSheet_16
       rect:
         serializedVersion: 2
-        x: 256
+        x: 384
         y: 256
         width: 128
         height: 128
@@ -558,7 +580,7 @@ TextureImporter:
       name: CandySpriteSheet_17
       rect:
         serializedVersion: 2
-        x: 384
+        x: 512
         y: 256
         width: 128
         height: 128
@@ -580,7 +602,7 @@ TextureImporter:
       name: CandySpriteSheet_18
       rect:
         serializedVersion: 2
-        x: 512
+        x: 640
         y: 256
         width: 128
         height: 128
@@ -602,8 +624,8 @@ TextureImporter:
       name: CandySpriteSheet_19
       rect:
         serializedVersion: 2
-        x: 640
-        y: 256
+        x: 0
+        y: 128
         width: 128
         height: 128
       alignment: 0
@@ -621,10 +643,32 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
+      name: CandySpriteSheet_20
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 128
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd1195673c0f4b0d0800000000000000
+      internalID: -3407834295717785125
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
       name: CandySpriteSheet_21
       rect:
         serializedVersion: 2
-        x: 0
+        x: 256
         y: 128
         width: 128
         height: 128
@@ -646,7 +690,7 @@ TextureImporter:
       name: CandySpriteSheet_22
       rect:
         serializedVersion: 2
-        x: 128
+        x: 384
         y: 128
         width: 128
         height: 128
@@ -668,7 +712,7 @@ TextureImporter:
       name: CandySpriteSheet_23
       rect:
         serializedVersion: 2
-        x: 256
+        x: 512
         y: 128
         width: 128
         height: 128
@@ -690,7 +734,7 @@ TextureImporter:
       name: CandySpriteSheet_24
       rect:
         serializedVersion: 2
-        x: 384
+        x: 640
         y: 128
         width: 128
         height: 128
@@ -712,8 +756,8 @@ TextureImporter:
       name: CandySpriteSheet_25
       rect:
         serializedVersion: 2
-        x: 512
-        y: 128
+        x: 0
+        y: 0
         width: 128
         height: 128
       alignment: 0
@@ -734,8 +778,8 @@ TextureImporter:
       name: CandySpriteSheet_26
       rect:
         serializedVersion: 2
-        x: 640
-        y: 128
+        x: 128
+        y: 0
         width: 128
         height: 128
       alignment: 0
@@ -756,7 +800,7 @@ TextureImporter:
       name: CandySpriteSheet_27
       rect:
         serializedVersion: 2
-        x: 0
+        x: 256
         y: 0
         width: 128
         height: 128
@@ -778,7 +822,7 @@ TextureImporter:
       name: CandySpriteSheet_28
       rect:
         serializedVersion: 2
-        x: 128
+        x: 384
         y: 0
         width: 128
         height: 128
@@ -800,7 +844,7 @@ TextureImporter:
       name: CandySpriteSheet_29
       rect:
         serializedVersion: 2
-        x: 256
+        x: 512
         y: 0
         width: 128
         height: 128
@@ -822,7 +866,7 @@ TextureImporter:
       name: CandySpriteSheet_30
       rect:
         serializedVersion: 2
-        x: 384
+        x: 640
         y: 0
         width: 128
         height: 128
@@ -840,55 +884,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: CandySpriteSheet_31
-      rect:
-        serializedVersion: 2
-        x: 512
-        y: 0
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5b16b7cfb9121da43abb8a72a8502520
-      internalID: 1280777095
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: CandySpriteSheet_32
-      rect:
-        serializedVersion: 2
-        x: 640
-        y: 0
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4a6e9bfe52aa8fd499c07228af7c8359
-      internalID: -282952530
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: d6f0d11e7136f76419f3e498f67431bd
+    spriteID: ea6b89d95ddb8544c95fa54c20406484
     internalID: 0
     vertices: []
     indices: 
@@ -925,8 +925,6 @@ TextureImporter:
       CandySpriteSheet_29: -544208964139362905
       CandySpriteSheet_3: -3177160399324984115
       CandySpriteSheet_30: -2537575886721161388
-      CandySpriteSheet_31: 1280777095
-      CandySpriteSheet_32: -282952530
       CandySpriteSheet_4: 8727433839741788265
       CandySpriteSheet_5: -4856937507534544320
       CandySpriteSheet_6: 8608822436287628320
