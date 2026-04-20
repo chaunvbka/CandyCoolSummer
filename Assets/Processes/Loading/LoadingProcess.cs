@@ -6,9 +6,8 @@ namespace Texell.Processes
     using UnityEngine;
     using UnityEngine.UIElements;
 
-    using Texell.CoreModule.ProcessManager;
-    using Texell.CoreModule.UI;
     using Texell.CoreModule;
+    using Texell.CoreModule.UI;
     using Texell.Utility;
 
     public class LoadingProcess : IProcess

@@ -1,6 +1,6 @@
 #pragma warning disable IDE0130
 
-namespace Texell.CoreModule.ProcessManager
+namespace Texell.CoreModule
 {
     using System;
     using System.Collections;

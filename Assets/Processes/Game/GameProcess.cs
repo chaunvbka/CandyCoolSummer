@@ -4,7 +4,7 @@ namespace Texell.Processes
 {
 
     using UnityEngine;
-    using Texell.CoreModule.ProcessManager;
+    using Texell.CoreModule;
     
     public class GameProcess : IProcess
     {

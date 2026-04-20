@@ -6,7 +6,6 @@ namespace Texell.CoreModule.Application
 {
     using UnityEngine;
     using Texell.Utility;
-    using Texell.CoreModule.ProcessManager;
     using Texell.CoreModule.UI;
     using Texell.CoreModule;
 
