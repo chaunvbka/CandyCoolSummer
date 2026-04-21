@@ -26,15 +26,15 @@ public class SpawnCandy : MonoBehaviour
     {
         BoundsInt Bounds = TileBoard.cellBounds;
         Debug.Log("Hello");
+        int x = 0;
         foreach (var pos in Bounds.allPositionsWithin)
         {
             if (TileBoard.HasTile(pos))
             {
-                var candy = Instantiate(CandiesForSpawn[0]).GetComponent<Candy>();
-                candy.transform.position = new Vector2(pos.x + Offset.x, pos.y + Offset.y);
+                x++;
             }
         }
-
+        Debug.Log("x = " + x);
         //Fill a lookup of candy type to candy.
         foreach (var candy in CandiesForSpawn)
         {

@@ -13,8 +13,13 @@ namespace Texell.CoreModule
         private static PoolManager s_Instance;
         public static PoolManager Instance => s_Instance;
 
-        private bool _dispose = false;
+        /// <summary>
+        /// We can use all pool data in PoolManager if Initialize function done.
+        /// </summary>
+        public bool Done => _done;
 
+        private bool _dispose = false;
+        private bool _done = false;
         private readonly AssetManager assetManager = AssetManager.Instance;
 
         // Candy pool.
@@ -67,6 +72,7 @@ namespace Texell.CoreModule
 
         public IEnumerator Initialize()
         {
+            // Candy pool.
             yield return V_BlueCandyPool.Initialize(assetManager.CandyPrefabs[(int)CandyIndex.V_BLUE], 5);
             yield return V_YellowCandyPool.Initialize(assetManager.CandyPrefabs[(int)CandyIndex.V_YELLOW], 5);
             yield return V_RedCandyPool.Initialize(assetManager.CandyPrefabs[(int)CandyIndex.V_RED], 5);
@@ -103,6 +109,8 @@ namespace Texell.CoreModule
             yield return SWIRL_GreenCandyPool.Initialize(assetManager.CandyPrefabs[(int)CandyIndex.SWIRL_GREEN], 5);
             yield return SWIRL_PurpleCandyPool.Initialize(assetManager.CandyPrefabs[(int)CandyIndex.SWIRL_PURPLE], 5);
             yield return SWIRL_PinkCandyPool.Initialize(assetManager.CandyPrefabs[(int)CandyIndex.SWIRL_PINK], 5);
+
+            _done = true;
         }
 
         public void Dispose()
@@ -110,6 +118,7 @@ namespace Texell.CoreModule
             if (_dispose) return;
             _dispose = true;
 
+            // Candy pool.
             V_BlueCandyPool?.Dispose();
             V_YellowCandyPool?.Dispose();
             V_RedCandyPool?.Dispose();

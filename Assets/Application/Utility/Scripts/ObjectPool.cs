@@ -41,7 +41,6 @@ namespace Texell.Utility
             {
                 Debug.LogWarning($"ObjectPool: Pool is empty, creating a new object.");
                 obj = UnityEngine.Object.Instantiate(_prefab);
-                _pool.Push(obj);
             }
 
             return obj;

@@ -70,7 +70,7 @@ namespace Texell.Processes
                 if (_progressValue >= 1)
                 {
                     _progressValue = 1;
-                    ProcessManager.Instance.TransitionTo(ProcessIndex.Home);
+                    ProcessManager.Instance.TransitionTo(ProcessIndex.Game);
                 }
                 _model.OnLoadProgressUpdated(_progressValue * 100);
                 _elapsedTime += Time.deltaTime;
