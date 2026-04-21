@@ -1,58 +1,56 @@
-#pragma warning disable IDE0130
+#pragma warning disable IDE0130 
 
 namespace Texell.Utility
 {
 
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
 
     public class ObjectPool : IDisposable
     {
         private bool _dispose = false;
-        private int _poolSize = 1;
         private GameObject _prefab;
-        private readonly Stack<GameObject> _pool = new();
+        private Stack<GameObject> _pool = new();
 
-        public void Initialize(GameObject prefab, int poolSize = 1)
+        public IEnumerator Initialize(GameObject prefab, int size = 1)
         {
             _prefab = prefab;
-            _poolSize = poolSize;
-            for (int i = 0; i < _poolSize; i++)
+            for (int i = 0; i < size; i++)
             {
                 GameObject obj = UnityEngine.Object.Instantiate(_prefab);
                 obj.SetActive(false);
                 _pool.Push(obj);
+
+                // Wait until the next frame to continue the loop.
+                yield return null;
             }
         }
 
-        public GameObject GetObject()
+        public GameObject Pop()
         {
+            GameObject obj;
+
             if (_pool.Count > 0)
             {
-                GameObject obj = _pool.Pop();
+                obj = _pool.Pop();
                 obj.SetActive(true);
-                return obj;
             }
             else
             {
-                Debug.LogWarning($"ObjectPool: Pool is empty, creating a new object. Pool size: {_poolSize}");
-                GameObject obj = UnityEngine.Object.Instantiate(_prefab);
-                return obj;
-            }
-        }
-
-        public void ReturnObject(GameObject obj)
-        {
-            obj.SetActive(false);
-            if (_pool.Count < _poolSize)
-            {
+                Debug.LogWarning($"ObjectPool: Pool is empty, creating a new object.");
+                obj = UnityEngine.Object.Instantiate(_prefab);
                 _pool.Push(obj);
             }
-            else
-            {
-                UnityEngine.Object.Destroy(obj);
-            }
+
+            return obj;
+        }
+
+        public void Push(GameObject obj)
+        {
+            obj.SetActive(false);
+            _pool.Push(obj);
         }
 
         public void Dispose()
@@ -60,8 +58,8 @@ namespace Texell.Utility
             if (_dispose) return;
             _dispose = true;
             _pool.Clear();
+            _pool = null;
             _prefab = null;
-            _poolSize = 0;
         }
 
         ~ObjectPool()

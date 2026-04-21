@@ -1,15 +1,15 @@
-#pragma warning disable IDE0130 // Namespace does not match folder structure
-#pragma warning disable IDE0051 // Remove unused private members
+#pragma warning disable IDE0130
 
-
-namespace Texell.CandyCoolSummer
+namespace Texell.CoreModule
 {
-    using UnityEngine;
+    public enum AudioClipIndex
+    {
+        AudioClip_0,
+        AudioClip_1,
+        AudioClip_2,
+    }
 
-    /// <summary>
-    /// V = striped vertical, H = striped horizontal.
-    /// </summary>
-    public enum CandyType
+    public enum CandyIndex
     {
         V_BLUE = 0,
         V_YELLOW = 1,
@@ -40,7 +40,7 @@ namespace Texell.CandyCoolSummer
         STING_GREEN = 22,
         STING_PURPLE = 23,
         STING_PINK = 24,
-        
+
         SWIRL_BLUE = 25,
         SWIRL_YELLOW = 26,
         SWIRL_RED = 27,
@@ -48,11 +48,4 @@ namespace Texell.CandyCoolSummer
         SWIRL_PURPLE = 29,
         SWIRL_PINK = 30,
     }
-
-    public class Candy : MonoBehaviour
-    {
-        public CandyType Type;
-    }
 }
-
-

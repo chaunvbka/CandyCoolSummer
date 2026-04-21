@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f0d4e25d230a7a43b16cb8533d61fde, type: 3}
   m_Name: ApplicationSettings
   m_EditorClassIdentifier: Assembly-CSharp::ApplicationProfile
-  Active: 0
+  Active: 1
   DebugMode: 1
   ShowFPS: 0

@@ -12,7 +12,7 @@ namespace Texell.Processes
 
     public class LoadingProcess : IProcess
     {
-        private const float k_LoadTime = 5.0f;
+        private const float k_LoadTime = 1.0f;
         private float _elapsedTime = 0;
         private float _progressValue = 0;
         /// <summary>
@@ -23,29 +23,30 @@ namespace Texell.Processes
         private bool _showAds = false;
         private float _timeShowAds = 0;
 
-        private UIManager _uiManager;
+        private readonly UIManager _uiManager = UIManager.Instance;
+        private readonly AssetManager _assetManager = AssetManager.Instance;
+        private readonly PoolManager _poolManager = PoolManager.Instance;
         private LoadingModel _model;
-        private AssetManager _assetManager;
+
         //private AdsManager _adsManager;
 
         public void OnStart()
         {
             //_adsManager = AdsManager.Instance;
-            _uiManager = UIManager.Instance;
-            _assetManager = AssetManager.Instance;
             _model = new();
 
             // Create loading screen UI
             var xml = Resources.Load<VisualTreeAsset>(UIPaths.UXMLPaths[(int)UXMLIndex.Loading_ui]);
             _uiManager.CreateUI<LoadingUI>(xml);
             _timeShowAds = Random.Range(0.45f, 0.9f);
-
+            _assetManager.LoadAssetAsync();
             NonMono.StartCoroutine(Initialize());
         }
 
         IEnumerator Initialize()
         {
-            yield return new WaitUntil(() => _assetManager.Loaded);
+            yield return new WaitUntil(() => _assetManager.Loaded == true);
+            NonMono.StartCoroutine(_poolManager.Initialize());
             _loadAssetsDone = true;
         }
 
