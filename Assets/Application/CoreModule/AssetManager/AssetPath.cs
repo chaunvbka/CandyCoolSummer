@@ -4,6 +4,8 @@ namespace Texell.CoreModule
 {
     public static class AssetPath
     {
+        public static string BackgroundPath = "GamePrefabs/Background";
+
         public static string[] AudioClipPaths = new string[]
         {
             "AudioClips/AudioClip_0",

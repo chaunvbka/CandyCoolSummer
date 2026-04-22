@@ -7,8 +7,8 @@ namespace Texell.CoreModule.UI
         public static string[] UXMLPaths =
         {
             "UI/UXML/loading_ui",
-            "UI/UXML/XML_1",
-            "UI/UXML/XML_2",
+            "UI/UXML/home_ui",
+            "UI/UXML/game_ui",
         };
 
         public static string[] USSPaths =

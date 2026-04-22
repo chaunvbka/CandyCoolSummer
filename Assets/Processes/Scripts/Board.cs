@@ -3,14 +3,18 @@
 
 namespace Texell.CandyCoolSummer
 {
-    using System.Collections;
     using System.Collections.Generic;
     using Texell.CoreModule;
     using UnityEngine;
     using UnityEngine.Tilemaps;
 
-    public class Board
+    public class Board : MonoBehaviour
     {
+        // Board class do:
+        // 1. Generate and store board cells.
+        // 2. Spawn and store candies.
+        // 3. Spawn and store obstacles.
+
         // Input data.
         public Tilemap TileBoard;
         public Candy[] CandiesForSpawn = new Candy[6];
@@ -23,14 +27,8 @@ namespace Texell.CandyCoolSummer
         private readonly AssetManager _assetManager = AssetManager.Instance;
         private readonly PoolManager _poolManager = PoolManager.Instance;
 
-
-        public IEnumerator Initialize()
+        public void Initialize()
         {
-            TileBoard = GameObject.Find("TileBoard").GetComponent<Tilemap>();
-
-            Debug.Log(" _poolManager.Done: " + _poolManager.Done);
-            yield return new WaitUntil(() => _poolManager.Done == true);
-            Debug.Log(" _poolManager.Done: " + _poolManager.Done);
             for (int i = 0; i < 6; i++)
             {
                 int index = (int)CandyIndex.BLUE + i;
@@ -79,6 +77,11 @@ namespace Texell.CandyCoolSummer
         void GenerateBoard()
         {
 
+        }
+
+        void OnDestroy()
+        {
+            
         }
     }
 }

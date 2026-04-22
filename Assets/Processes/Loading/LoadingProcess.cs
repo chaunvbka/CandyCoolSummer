@@ -38,6 +38,7 @@ namespace Texell.Processes
             // Create loading screen UI
             var xml = Resources.Load<VisualTreeAsset>(UIPaths.UXMLPaths[(int)UXMLIndex.Loading_ui]);
             _uiManager.CreateUI<LoadingUI>(xml);
+
             _timeShowAds = Random.Range(0.45f, 0.9f);
             _assetManager.LoadAssetAsync();
             NonMono.StartCoroutine(Initialize());
@@ -47,6 +48,7 @@ namespace Texell.Processes
         {
             yield return new WaitUntil(() => _assetManager.Loaded == true);
             NonMono.StartCoroutine(_poolManager.Initialize());
+            yield return new WaitUntil(() => _poolManager.Done == true);
             _loadAssetsDone = true;
         }
 
@@ -70,7 +72,7 @@ namespace Texell.Processes
                 if (_progressValue >= 1)
                 {
                     _progressValue = 1;
-                    ProcessManager.Instance.TransitionTo(ProcessIndex.Game);
+                    ProcessManager.Instance.TransitionTo(ProcessIndex.Home);
                 }
                 _model.OnLoadProgressUpdated(_progressValue * 100);
                 _elapsedTime += Time.deltaTime;

@@ -1,0 +1,8 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="home-screen" style="flex-grow: 1; background-color: rgb(0, 81, 139);">
+        <ui:VisualElement name="BG1" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Textures/BG_Test.png?fileID=2800000&amp;guid=97494195f4b80ae46872a9dfc67c97da&amp;type=3#BG_Test&quot;); -unity-background-scale-mode: scale-and-crop;">
+            <ui:Button text="Level 1" name="button_level-1" style="justify-content: space-evenly; align-items: stretch; align-self: center; align-content: flex-start; top: 80%; -unity-font-style: bold; font-size: 58px;"/>
+            <ui:ScrollView/>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

@@ -5,7 +5,8 @@ namespace Texell.CoreModule.UI
     public enum UXMLIndex
     {
         Loading_ui,
-        XML_1,
-        XML_2,
+        Home_ui,
+        Game_ui,
+        End_ui
     }
 }

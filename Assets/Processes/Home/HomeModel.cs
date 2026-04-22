@@ -23,6 +23,11 @@ namespace Texell.Processes
             }
         }
 
+        public event Action LevelSelected;
+        public void OnLevelSelected()
+        {
+            LevelSelected?.Invoke();
+        }
 
         public override void Dispose()
         {
