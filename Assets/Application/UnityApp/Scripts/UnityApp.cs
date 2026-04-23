@@ -152,6 +152,7 @@ namespace Texell.CoreModule.Application
                 s_Instance = null;
                 return;
             }
+
             NonMono.DestroyMonoInstance();
 
             _fpsDisplay?.Dispose();
@@ -168,6 +169,22 @@ namespace Texell.CoreModule.Application
             _iapManager?.Dispose();
             _gpgsAndroid?.Dispose();
             _adsManager?.Dispose();
+#endif
+
+            _fpsDisplay = null;
+            _uiManager = null;
+            _transition = null;
+            _assetManager = null;
+            _appDataManager = null;
+            _audioManager = null;
+            _inputManager = null;
+            _processManager = null;
+            _poolManager = null;
+
+#if EXTERNAL_MODULES
+            _adsManager = null;
+            _iapManager = null;
+            _gpgsAndroid = null;
 #endif
 
             s_Instance = null;

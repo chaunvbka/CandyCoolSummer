@@ -28,7 +28,11 @@ namespace Texell.Utility
             }
         }
 
-        public GameObject Pop()
+        /// <summary>
+        /// Retrieves an object from the pool.
+        /// </summary>
+        /// <returns></returns>
+        public GameObject Get()
         {
             GameObject obj;
 
@@ -46,7 +50,11 @@ namespace Texell.Utility
             return obj;
         }
 
-        public void Push(GameObject obj)
+        /// <summary>
+        /// Returns an object to the pool for reuse.
+        /// </summary>
+        /// <param name="obj"></param>
+        public void Release(GameObject obj)
         {
             obj.SetActive(false);
             _pool.Push(obj);

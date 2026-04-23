@@ -4,9 +4,6 @@ namespace Texell.CandyCoolSummer
 {
     using UnityEngine;
 
-    /// <summary>
-    /// Cell of the board.
-    /// </summary>
     public class Cell
     {
         public static readonly Vector3Int[] Neighbours =
@@ -19,9 +16,7 @@ namespace Texell.CandyCoolSummer
 
         public Candy ContainingCandy;
         public Candy IncomingCandy;
-
-        //TODO: One cell has some obstacles with diffrence type.
-        //public Obstacle Obstacle;
+        public Obstacle Obstacle;
 
         public bool Locked = false;
 

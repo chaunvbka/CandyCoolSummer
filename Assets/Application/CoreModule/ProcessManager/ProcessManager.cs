@@ -20,7 +20,8 @@ namespace Texell.CoreModule
         private IProcess[] _processList;
         private IProcess _loadingProcess;
 
-        public IProcess Active { get; private set; }
+        private IProcess _currentProcess;
+
 
         public ProcessManager()
         {
@@ -82,8 +83,8 @@ namespace Texell.CoreModule
         /// </summary>
         public void Run()
         {
-            _loadingProcess?.OnStart();
-            Active = _loadingProcess;
+            _currentProcess = _loadingProcess;
+            _currentProcess?.OnStart();
         }
 
         public void TransitionTo(ProcessIndex index)
@@ -93,15 +94,15 @@ namespace Texell.CoreModule
 
         public void OnUpdate()
         {
-            Active?.OnUpdate();
+            _currentProcess?.OnUpdate();
         }
 
         IEnumerator FadeInOut(ProcessIndex index)
         {
             yield return Transition.Instance.FadeIn();
-            Active.OnExit();
-            Active = _processList[(int)index];
-            Active?.OnStart();
+            _currentProcess.OnExit();
+            _currentProcess = _processList[(int)index];
+            _currentProcess?.OnStart();
             yield return Transition.Instance.FadeOut();
         }
 
@@ -110,11 +111,8 @@ namespace Texell.CoreModule
             if (_dispose) return;
             _dispose = true;
 
-            _loadingProcess?.OnExit();
-            foreach (var process in _processList)
-            {
-                process?.OnExit();
-            }
+            _currentProcess?.OnExit();
+            _currentProcess = null;
             _loadingProcess = null;
             _processList = null;
             s_Instance = null;

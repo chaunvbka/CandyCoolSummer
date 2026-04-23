@@ -6,6 +6,13 @@ namespace Texell.CoreModule
     {
         public static string BackgroundPath = "GamePrefabs/Background";
 
+        public static string[] BoardPrefabPaths = new string[]
+        {
+            "BoardPrefabs/Level_1",
+            "BoardPrefabs/Level_2",
+            "BoardPrefabs/Level_3",
+        };
+
         public static string[] AudioClipPaths = new string[]
         {
             "AudioClips/AudioClip_0",

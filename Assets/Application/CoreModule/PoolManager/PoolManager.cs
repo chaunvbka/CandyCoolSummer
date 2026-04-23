@@ -73,28 +73,28 @@ namespace Texell.CoreModule
         public IEnumerator Initialize()
         {
             // Candy pool.
-            yield return V_BlueCandyPool.Initialize(assetManager.CandyPrefabs[(int)CandyIndex.V_BLUE], 5);
-            yield return V_YellowCandyPool.Initialize(assetManager.CandyPrefabs[(int)CandyIndex.V_YELLOW], 5);
-            yield return V_RedCandyPool.Initialize(assetManager.CandyPrefabs[(int)CandyIndex.V_RED], 5);
-            yield return V_GreenCandyPool.Initialize(assetManager.CandyPrefabs[(int)CandyIndex.V_GREEN], 5);
-            yield return V_PurpleCandyPool.Initialize(assetManager.CandyPrefabs[(int)CandyIndex.V_PURPLE], 5);
-            yield return V_PinkCandyPool.Initialize(assetManager.CandyPrefabs[(int)CandyIndex.V_PINK], 5);
+            yield return V_BlueCandyPool.Initialize(assetManager.CandyPrefabs[(int)CandyIndex.V_BLUE], 10);
+            yield return V_YellowCandyPool.Initialize(assetManager.CandyPrefabs[(int)CandyIndex.V_YELLOW], 10);
+            yield return V_RedCandyPool.Initialize(assetManager.CandyPrefabs[(int)CandyIndex.V_RED], 10);
+            yield return V_GreenCandyPool.Initialize(assetManager.CandyPrefabs[(int)CandyIndex.V_GREEN], 10);
+            yield return V_PurpleCandyPool.Initialize(assetManager.CandyPrefabs[(int)CandyIndex.V_PURPLE], 10);
+            yield return V_PinkCandyPool.Initialize(assetManager.CandyPrefabs[(int)CandyIndex.V_PINK], 10);
 
-            yield return ChocolateMilkCandyPool.Initialize(assetManager.CandyPrefabs[(int)CandyIndex.CHOCOLATE_MILK], 3);
+            yield return ChocolateMilkCandyPool.Initialize(assetManager.CandyPrefabs[(int)CandyIndex.CHOCOLATE_MILK], 5);
 
-            yield return H_BlueCandyPool.Initialize(assetManager.CandyPrefabs[(int)CandyIndex.H_BLUE], 5);
-            yield return H_YellowCandyPool.Initialize(assetManager.CandyPrefabs[(int)CandyIndex.H_YELLOW], 5);
-            yield return H_RedCandyPool.Initialize(assetManager.CandyPrefabs[(int)CandyIndex.H_RED], 5);
-            yield return H_GreenCandyPool.Initialize(assetManager.CandyPrefabs[(int)CandyIndex.H_GREEN], 5);
-            yield return H_PurpleCandyPool.Initialize(assetManager.CandyPrefabs[(int)CandyIndex.H_PURPLE], 5);
-            yield return H_PinkCandyPool.Initialize(assetManager.CandyPrefabs[(int)CandyIndex.H_PINK], 5);
+            yield return H_BlueCandyPool.Initialize(assetManager.CandyPrefabs[(int)CandyIndex.H_BLUE], 10);
+            yield return H_YellowCandyPool.Initialize(assetManager.CandyPrefabs[(int)CandyIndex.H_YELLOW], 10);
+            yield return H_RedCandyPool.Initialize(assetManager.CandyPrefabs[(int)CandyIndex.H_RED], 10);
+            yield return H_GreenCandyPool.Initialize(assetManager.CandyPrefabs[(int)CandyIndex.H_GREEN], 10);
+            yield return H_PurpleCandyPool.Initialize(assetManager.CandyPrefabs[(int)CandyIndex.H_PURPLE], 10);
+            yield return H_PinkCandyPool.Initialize(assetManager.CandyPrefabs[(int)CandyIndex.H_PINK], 10);
 
-            yield return BlueCandyPool.Initialize(assetManager.CandyPrefabs[(int)CandyIndex.BLUE], 10);
-            yield return YellowCandyPool.Initialize(assetManager.CandyPrefabs[(int)CandyIndex.YELLOW], 10);
-            yield return RedCandyPool.Initialize(assetManager.CandyPrefabs[(int)CandyIndex.RED], 10);
-            yield return GreenCandyPool.Initialize(assetManager.CandyPrefabs[(int)CandyIndex.GREEN], 10);
-            yield return PurpleCandyPool.Initialize(assetManager.CandyPrefabs[(int)CandyIndex.PURPLE], 10);
-            yield return PinkCandyPool.Initialize(assetManager.CandyPrefabs[(int)CandyIndex.PINK], 10);
+            yield return BlueCandyPool.Initialize(assetManager.CandyPrefabs[(int)CandyIndex.BLUE], 20);
+            yield return YellowCandyPool.Initialize(assetManager.CandyPrefabs[(int)CandyIndex.YELLOW], 20);
+            yield return RedCandyPool.Initialize(assetManager.CandyPrefabs[(int)CandyIndex.RED], 20);
+            yield return GreenCandyPool.Initialize(assetManager.CandyPrefabs[(int)CandyIndex.GREEN], 20);
+            yield return PurpleCandyPool.Initialize(assetManager.CandyPrefabs[(int)CandyIndex.PURPLE], 20);
+            yield return PinkCandyPool.Initialize(assetManager.CandyPrefabs[(int)CandyIndex.PINK], 20);
 
             yield return STING_BluePool.Initialize(assetManager.CandyPrefabs[(int)CandyIndex.STING_BLUE], 5);
             yield return STING_YellowPool.Initialize(assetManager.CandyPrefabs[(int)CandyIndex.STING_YELLOW], 5);

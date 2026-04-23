@@ -26,12 +26,14 @@ namespace Texell.Processes
         private readonly UIManager _uiManager = UIManager.Instance;
         private readonly AssetManager _assetManager = AssetManager.Instance;
         private readonly PoolManager _poolManager = PoolManager.Instance;
+        private readonly ProcessManager _processManager = ProcessManager.Instance;
         private LoadingModel _model;
 
         //private AdsManager _adsManager;
 
         public void OnStart()
         {
+            Debug.Log("LoadingProcess.OnStart()");
             //_adsManager = AdsManager.Instance;
             _model = new();
 
@@ -72,7 +74,7 @@ namespace Texell.Processes
                 if (_progressValue >= 1)
                 {
                     _progressValue = 1;
-                    ProcessManager.Instance.TransitionTo(ProcessIndex.Home);
+                    _processManager.TransitionTo(ProcessIndex.Home);
                 }
                 _model.OnLoadProgressUpdated(_progressValue * 100);
                 _elapsedTime += Time.deltaTime;
@@ -81,10 +83,10 @@ namespace Texell.Processes
 
         public void OnExit()
         {
-            _uiManager.Clear();
-            _model.Dispose();
-
-            ProcessManager.Instance.DestroyLoading();
+            _uiManager?.Clear();
+            _model?.Dispose();
+            _processManager.DestroyLoading();
+            
             Resources.UnloadUnusedAssets();
             System.GC.Collect();
         }

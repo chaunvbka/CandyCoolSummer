@@ -36,12 +36,12 @@ namespace Texell.Processes
             // Create model
             _model = new();
 
+            // Create background
             _background = _assetManager.Background;
             _background.SetActive(true);
 
-            string absolutePath = "BoardLevelPrefabs/Board_Level_";
-            string path = absolutePath + _level.ToString();
-            var levelBoardPrefab = Resources.Load<GameObject>(path);
+            // Create board game
+            var levelBoardPrefab = Resources.Load<GameObject>(AssetPath.BoardPrefabPaths[_level - 1]);
             var go = Object.Instantiate(levelBoardPrefab);
             _board = go.GetComponent<Board>();
 
@@ -63,6 +63,20 @@ namespace Texell.Processes
 
         public void OnExit()
         {
+            //UnregisterEvents();
+
+            _uiManager?.Clear();
+            _model?.Dispose();
+            _background?.SetActive(false);
+
+            if (_board != null)
+            {
+                Object.Destroy(_board.gameObject);
+                _board = null;
+            }
+            
+            Resources.UnloadUnusedAssets();
+            System.GC.Collect();
         }
     }
 }

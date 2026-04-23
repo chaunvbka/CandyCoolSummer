@@ -52,8 +52,8 @@ namespace Texell.Processes
         {
             UnregisterEvents();
 
-            _uiManager.Clear();
-            _model.Dispose();
+            _uiManager?.Clear();
+            _model?.Dispose();
             Resources.UnloadUnusedAssets();
             System.GC.Collect();
         }

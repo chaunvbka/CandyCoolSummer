@@ -95,73 +95,10 @@ namespace Texell.CandyCoolSummer
         private State _currentState = State.Existing;
         private float _fallTime = 0.0f;
 
-        private readonly PoolManager _poolManager = PoolManager.Instance;
-
-
         // public virtual void Init(Vector3Int startIdx)
         // {
         //     _currentIndex = startIdx;
         // }
-
-        public GameObject Instantiate()
-        {
-            if (!_poolManager.Done)
-            {
-                Debug.LogError("Cannot instantiate candy!");
-                return null;
-            }
-
-            GameObject go = null;
-
-            switch (Type)
-            {
-                case CandyType.BLUE:
-                    go = _poolManager.BlueCandyPool.Pop();
-                    break;
-                case CandyType.YELLOW:
-                    go = _poolManager.YellowCandyPool.Pop();
-                    break;
-                case CandyType.RED:
-                    go = _poolManager.RedCandyPool.Pop();
-                    break;
-                case CandyType.GREEN:
-                    go = _poolManager.GreenCandyPool.Pop();
-                    break;
-                case CandyType.PURPLE:
-                    go = _poolManager.PurpleCandyPool.Pop();
-                    break;
-                case CandyType.PINK:
-                    go = _poolManager.PinkCandyPool.Pop();
-                    break;
-            }
-
-            return go;
-        }
-
-        public void SeftDestroy()
-        {
-            switch (Type)
-            {
-                case CandyType.BLUE:
-                    _poolManager.BlueCandyPool.Push(gameObject);
-                    break;
-                case CandyType.YELLOW:
-                    _poolManager.YellowCandyPool.Push(gameObject);
-                    break;
-                case CandyType.RED:
-                    _poolManager.RedCandyPool.Push(gameObject);
-                    break;
-                case CandyType.GREEN:
-                    _poolManager.GreenCandyPool.Push(gameObject);
-                    break;
-                case CandyType.PURPLE:
-                    _poolManager.PurpleCandyPool.Push(gameObject);
-                    break;
-                case CandyType.PINK:
-                    _poolManager.PinkCandyPool.Push(gameObject);
-                    break;
-            }
-        }
     }
 }
 
