@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2180009737671400671}
   - component: {fileID: 6110291205359230780}
-  - component: {fileID: 3048184834804132908}
+  - component: {fileID: 3303897704387941287}
   m_Layer: 0
   m_Name: ChocolateMilkCandy
   m_TagString: Untagged
@@ -92,7 +92,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &3048184834804132908
+--- !u!114 &3303897704387941287
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -101,7 +101,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 4495096858858703087}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75c5651414b81f642a251beebd67287d, type: 3}
+  m_Script: {fileID: 11500000, guid: 907ef0115db5126479ad125e4211625a, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Texell.CandyCoolSummer.Candy
-  Type: 6
+  m_EditorClassIdentifier: Texell.Processes::Texell.CandyCoolSummer.ChocolateMilk
+  Pool: 6
+  Type: 0
+  Position: {x: 0, y: 0, z: 0}

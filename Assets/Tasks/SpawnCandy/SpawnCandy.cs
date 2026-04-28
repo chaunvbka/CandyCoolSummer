@@ -5,18 +5,26 @@ using UnityEngine.Tilemaps;
 
 public class SpawnCandy : MonoBehaviour
 {
-    Hello hello1;
-    Hello hello2 = Hello.Instance;
+
+    public AnimationCurve myCurve;
 
     void Start()
     {
-        hello1 = new();
+
+    }
+
+    void Update()
+    {
+        // Get the y-value of the curve at the current time
+        float curveValue = myCurve.Evaluate(Time.time);
+
+        // Use that value for logic (e.g., setting an object's height)
+        transform.position = new Vector3(transform.position.x, curveValue, transform.position.z);
     }
 
     void OnDestroy()
     {
-        hello1.Dispose();
-        hello1 = null;
+
     }
 
 

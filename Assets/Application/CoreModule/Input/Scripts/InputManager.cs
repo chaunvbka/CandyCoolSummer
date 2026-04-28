@@ -9,12 +9,18 @@ namespace Texell.CoreModule
 
     public class InputManager : IDisposable
     {
+        private bool _dispose = false;
         private static InputManager s_Instance = null;
         public static InputManager Instance => s_Instance;
 
-        private BaseInput _input;
         private readonly InputActionAsset _inputActionAsset;
         private readonly EventSystem _eventSystem;
+
+        public InputActionAsset InputActions => _inputActionAsset;
+        public EventSystem EventSystem => _eventSystem;
+
+        public InputAction ClickAction;
+        public InputAction ClickPosition;
 
         public InputManager()
         {
@@ -43,28 +49,17 @@ namespace Texell.CoreModule
             _eventSystem = instance.GetComponent<EventSystem>();
 
             //EventSystem.SetUITookitEventSystemOverride(_eventSystem);
-        }
-
-        public void OnUpdate()
-        {
-            _input?.OnUpdate();
-        }
-
-        public void CreateInput<T>() where T : BaseInput, new()
-        {
-            if (!_inputActionAsset || !_eventSystem)
-            {
-                Debug.LogError("InputManager is not initialized!");
-                return;
-            }
-
-            _input = new T();
-            _input.Initialize(_inputActionAsset, _eventSystem);
+            ClickAction = _inputActionAsset.FindAction("ClickAction");
+            ClickPosition = _inputActionAsset.FindAction("ClickPosition");
+            ClickAction.Enable();
+            ClickPosition.Enable();
         }
 
         public void Dispose()
         {
-            _input?.Dispose();
+            if (_dispose) return;
+            _dispose = true;
+
             s_Instance = null;
         }
     }

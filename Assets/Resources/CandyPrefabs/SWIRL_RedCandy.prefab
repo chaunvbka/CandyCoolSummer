@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8223127821391237894}
   - component: {fileID: 8263754792185907511}
-  - component: {fileID: -5210647346774876739}
+  - component: {fileID: 4793567221915513575}
   m_Layer: 0
   m_Name: SWIRL_RedCandy
   m_TagString: Untagged
@@ -92,7 +92,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &-5210647346774876739
+--- !u!114 &4793567221915513575
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -101,7 +101,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 8232587361508918772}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75c5651414b81f642a251beebd67287d, type: 3}
+  m_Script: {fileID: 11500000, guid: 1e224cce4bb03434c89a90f314424fb6, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Texell.CandyCoolSummer.Candy
-  Type: 27
+  m_EditorClassIdentifier: Texell.Processes::Texell.CandyCoolSummer.SwirlCandy
+  Pool: 27
+  Type: 3
+  Position: {x: 0, y: 0, z: 0}

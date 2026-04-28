@@ -140,7 +140,6 @@ namespace Texell.CoreModule.Application
 #if EXTERNAL_MODULES
             _adsManager.OnUpdate();
 #endif
-            _inputManager.OnUpdate();
             _processManager.OnUpdate();
             _fpsDisplay.OnUpdate(_appSettings.ShowFPS);
         }

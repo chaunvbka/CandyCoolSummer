@@ -24,6 +24,10 @@ namespace Texell.CoreModule
         /// or hidden until needed.
         /// </summary>
         public GameObject Background;
+        /// <summary>
+        /// Select object show when click on a cell.
+        /// </summary>
+        public GameObject Select;
         public AudioClip[] AudioClips = new AudioClip[Enum.GetNames(typeof(AudioClipIndex)).Length];
         public GameObject[] CandyPrefabs = new GameObject[Enum.GetNames(typeof(CandyIndex)).Length];
 
@@ -43,12 +47,22 @@ namespace Texell.CoreModule
         public IEnumerator LoadAssetAsync()
         {
             ResourceRequest request = null;
+            UnityEngine.Object go = null;
 
+            // Background
             request = Resources.LoadAsync<GameObject>(AssetPath.BackgroundPath);
             yield return request;
-            var bg = UnityEngine.Object.Instantiate(request.asset);
-            Background = bg as GameObject;
+            go = UnityEngine.Object.Instantiate(request.asset);
+            Background = go as GameObject;
             Background.SetActive(false);
+
+            // Select object
+            request = Resources.LoadAsync<GameObject>(AssetPath.SelectObjectPath);
+            yield return request;
+            go = UnityEngine.Object.Instantiate(request.asset);
+            Select = go as GameObject;
+            Select.SetActive(false);
+
 
             for (int i = 0; i < Enum.GetNames(typeof(AudioClipIndex)).Length; i++)
             {

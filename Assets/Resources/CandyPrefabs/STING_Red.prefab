@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 444277155334946979}
   - component: {fileID: 2167499695553463149}
-  - component: {fileID: 2934699814185136442}
+  - component: {fileID: 3250179007186748672}
   m_Layer: 0
   m_Name: STING_Red
   m_TagString: Untagged
@@ -92,7 +92,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &2934699814185136442
+--- !u!114 &3250179007186748672
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -101,7 +101,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 5740705119161887886}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75c5651414b81f642a251beebd67287d, type: 3}
+  m_Script: {fileID: 11500000, guid: 2c3a5dc90acbd8045955557e010ba651, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Texell.CandyCoolSummer.Candy
-  Type: 21
+  m_EditorClassIdentifier: Texell.Processes::Texell.CandyCoolSummer.Sting
+  Pool: 21
+  Type: 3
+  Position: {x: 0, y: 0, z: 0}

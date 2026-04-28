@@ -8,14 +8,14 @@ namespace Texell.Processes
 
     public class LoadingModel : BaseModel
     {
-        private static LoadingModel s_instance;
-        public static LoadingModel Instance => s_instance;
+        private static LoadingModel s_Instance;
+        public static LoadingModel Instance => s_Instance;
 
         public LoadingModel()
         {
-            if (s_instance == null)
+            if (s_Instance == null)
             {
-                s_instance = this;
+                s_Instance = this;
             }
             else
             {
@@ -34,7 +34,7 @@ namespace Texell.Processes
             if (_disposed) return;
             _disposed = true;
 
-            s_instance = null;
+            s_Instance = null;
         }
     }
 }

@@ -3,18 +3,34 @@
 namespace Texell.CandyCoolSummer
 {
     using System.Collections.Generic;
+    using UnityEngine;
+
+    public enum MatchType
+    {
+        LineThree,
+        LineFour,
+        LineFive,
+        TLShape,
+        SquareShape
+    }
 
     public class Match
     {
-        public List<Candy> MatchingCandy = new();
+        /// <summary>
+        /// List of cell position in a match.
+        /// </summary>
+        public List<Vector3Int> MatchingCandy = new();
 
-        public void Add(Candy candy)
-        {
-            if (candy.CurrentMatch != null)
-                return;
+        public MatchType Type;
 
-            MatchingCandy.Add(candy);
-            candy.CurrentMatch = this;
-        }
+        /// <summary>
+        /// The cell position to spawn special candy.
+        /// </summary>
+        public Vector3Int CombinedPoint;
+
+        /// <summary>
+        /// The prefab to spawn special candy.
+        /// </summary>
+        public CombineCandy CombinedPrefab;
     }
 }

@@ -14,7 +14,21 @@ namespace Texell.Utility
         private GameObject _prefab;
         private Stack<GameObject> _pool = new();
 
-        public IEnumerator Initialize(GameObject prefab, int size = 1)
+        // public IEnumerator Initialize(GameObject prefab, int size = 1)
+        // {
+        //     _prefab = prefab;
+        //     for (int i = 0; i < size; i++)
+        //     {
+        //         GameObject obj = UnityEngine.Object.Instantiate(_prefab);
+        //         obj.SetActive(false);
+        //         _pool.Push(obj);
+
+        //         // Wait until the next frame to continue the loop.
+        //         yield return null;
+        //     }
+        // }
+
+        public void Initialize(GameObject prefab, int size = 1)
         {
             _prefab = prefab;
             for (int i = 0; i < size; i++)
@@ -22,9 +36,6 @@ namespace Texell.Utility
                 GameObject obj = UnityEngine.Object.Instantiate(_prefab);
                 obj.SetActive(false);
                 _pool.Push(obj);
-
-                // Wait until the next frame to continue the loop.
-                yield return null;
             }
         }
 

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8026735358054822636}
   - component: {fileID: 7967149021255796152}
-  - component: {fileID: 8297133287551275868}
+  - component: {fileID: 8648786884664286120}
   m_Layer: 0
   m_Name: H_PinkCandy
   m_TagString: Untagged
@@ -92,7 +92,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &8297133287551275868
+--- !u!114 &8648786884664286120
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -101,7 +101,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 8789256522061570200}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75c5651414b81f642a251beebd67287d, type: 3}
+  m_Script: {fileID: 11500000, guid: 28f4ff0f5363a2d458701e76269c283a, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Texell.CandyCoolSummer.Candy
-  Type: 12
+  m_EditorClassIdentifier: Texell.Processes::Texell.CandyCoolSummer.HorizontalStripedCandy
+  Pool: 12
+  Type: 6
+  Position: {x: 0, y: 0, z: 0}

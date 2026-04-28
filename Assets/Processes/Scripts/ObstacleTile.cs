@@ -2,13 +2,16 @@
 
 namespace Texell.CandyCoolSummer
 {
+
     using UnityEngine;
     using UnityEngine.Tilemaps;
 
-    [CreateAssetMenu(fileName = "CandySpawnerTile", menuName = "CandyCoolSummer/Tile/CandySpawner")]
-    public class CandySpawnerTile : TileBase
+    [CreateAssetMenu(fileName = "ObstacleTile", menuName = "CandyCoolSummer/Tile/ObstacleTile")]
+    public class ObstacleTile : TileBase
     {
         public Sprite Sprite;
+
+        public Obstacle ObstaclePrefab = null;
 
         public override void GetTileData(Vector3Int position, ITilemap tilemap, ref TileData tileData)
         {
@@ -22,13 +25,9 @@ namespace Texell.CandyCoolSummer
                 return false;
 #endif
 
-            // This tile is only used in editor to help design the level. At runtime, we notify
-            // the board that this tile is a place for a candy. The Board will take care of 
-            // creating a candy there.
-            //Board.RegisterCandySpawner(position);
+            Board.RegisterObstacle(position, ObstaclePrefab);
 
             return base.StartUp(position, tilemap, go);
         }
     }
-
 }

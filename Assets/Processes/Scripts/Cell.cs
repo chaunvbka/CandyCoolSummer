@@ -2,23 +2,16 @@
 
 namespace Texell.CandyCoolSummer
 {
-    using UnityEngine;
-
     public class Cell
     {
-        public static readonly Vector3Int[] Neighbours =
-        {
-            Vector3Int.up,
-            Vector3Int.right,
-            Vector3Int.down,
-            Vector3Int.left
-        };
-
         public Candy ContainingCandy;
         public Candy IncomingCandy;
         public Obstacle Obstacle;
 
         public bool Locked = false;
+
+        public bool BlockFall => Locked || (ContainingCandy != null && !ContainingCandy.CanMove);
+        public bool CanFall => !Locked && ContainingCandy != null && ContainingCandy.CanMove;
 
         public bool CanMatch()
         {

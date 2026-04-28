@@ -49,8 +49,9 @@ namespace Texell.Processes
         IEnumerator Initialize()
         {
             yield return new WaitUntil(() => _assetManager.Loaded == true);
-            NonMono.StartCoroutine(_poolManager.Initialize());
-            yield return new WaitUntil(() => _poolManager.Done == true);
+            // NonMono.StartCoroutine(_poolManager.Initialize());
+            // yield return new WaitUntil(() => _poolManager.Done == true);
+            _poolManager.Initialize();
             _loadAssetsDone = true;
         }
 

@@ -5,14 +5,14 @@ namespace Texell.CandyCoolSummer
     using UnityEngine;
     using UnityEditor;
 
-    [CustomEditor(typeof(CandySpawnerTile))]
-    public class CandySpawnerTileEditor : Editor
+    [CustomEditor(typeof(CandyTile))]
+    public class CandyTileEditor : Editor
     {
-        CandySpawnerTile _candySpawnerTile;
+        CandyTile _tile;
 
         void OnEnable()
         {
-            _candySpawnerTile = target as CandySpawnerTile;
+            _tile = target as CandyTile;
         }
 
         public override bool HasPreviewGUI()
@@ -22,7 +22,7 @@ namespace Texell.CandyCoolSummer
 
         public override void OnPreviewGUI(Rect r, GUIStyle background)
         {
-            Texture2D preview = AssetPreview.GetAssetPreview(_candySpawnerTile.Sprite);
+            Texture2D preview = AssetPreview.GetAssetPreview(_tile.Sprite);
             if (preview != null)
             {
                 GUI.DrawTexture(r, preview, ScaleMode.ScaleToFit);
