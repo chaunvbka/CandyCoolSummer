@@ -48,4 +48,9 @@ namespace Texell.CoreModule
         SWIRL_PURPLE = 29,
         SWIRL_PINK = 30,
     }
+
+    public enum ObstacleIndex
+    {
+        TieRope,
+    }
 }

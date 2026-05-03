@@ -81,7 +81,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 2
   m_Sprite: {fileID: -3612856459123946470, guid: 126efddec97a92c47b5c4e4081ec59a0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -106,4 +106,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Texell.Processes::Texell.CandyCoolSummer.HorizontalStripedCandy
   Pool: 7
   Type: 1
-  Position: {x: 0, y: 0, z: 0}
+  SpeedMultiplier: 1
+  CurrentMatch:
+    MatchingCells: []
+    DeletionTimer: 0
+    ForcedDeletion: 0
+    Type: 0
+    Direction: {x: 0, y: 0, z: 0}
+    CombinedPoint: {x: 0, y: 0, z: 0}
+    CombinedPrefab: {fileID: 0}
+  _currentState: 0

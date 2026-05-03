@@ -4,8 +4,10 @@ namespace Texell.CoreModule
 {
     public static class AssetPath
     {
-        public static string BackgroundPath = "GamePrefabs/Background";
-        public static string SelectObjectPath = "GamePrefabs/Select";
+        public static string BackgroundPrefabPath = "GamePrefabs/Background";
+        public static string SelectPrefabPath = "GamePrefabs/Select";
+        public static string MatchFindingPrefabPath = "GamePrefabs/MatchFinding";
+        public static string HideCandyPrefabPath = "GamePrefabs/HideCandy";
 
         public static string[] BoardPrefabPaths = new string[]
         {
@@ -59,6 +61,11 @@ namespace Texell.CoreModule
             "CandyPrefabs/SWIRL_GreenCandy",
             "CandyPrefabs/SWIRL_PurpleCandy",
             "CandyPrefabs/SWIRL_PinkCandy",
+        };
+
+        public static string[] ObstaclePrefabPaths = new string[]
+        {
+            "ObstaclePrefabs/TieRope",
         };
     }
 }

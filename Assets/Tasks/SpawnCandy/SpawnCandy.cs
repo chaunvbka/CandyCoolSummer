@@ -1,25 +1,37 @@
 using System.Collections.Generic;
 using Texell.CandyCoolSummer;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Tilemaps;
 
 public class SpawnCandy : MonoBehaviour
 {
 
-    public AnimationCurve myCurve;
+    public InputAction mouseAction;
+    readonly List<int> list1 = new() { 1, 2, 3, 4 };
+    List<int> List1 => list1;
+    List<int> list2;
+
 
     void Start()
     {
+        list2 = List1;
+        list2.Remove(2);
+        list2.Add(8);
+        foreach (var i in list2)
+        {
+            Debug.Log("List2==i: " + i);
+        }
 
+        foreach (var i in list1)
+        {
+            Debug.Log("List1==i: " + i);
+        }
     }
 
     void Update()
     {
-        // Get the y-value of the curve at the current time
-        float curveValue = myCurve.Evaluate(Time.time);
 
-        // Use that value for logic (e.g., setting an object's height)
-        transform.position = new Vector3(transform.position.x, curveValue, transform.position.z);
     }
 
     void OnDestroy()
