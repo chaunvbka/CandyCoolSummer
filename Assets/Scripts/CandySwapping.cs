@@ -9,7 +9,6 @@ namespace Texell.CandyCoolSummer
 
     public class CandySwapping : IDisposable, IBoardAction
     {
-        static CandySwapping s_Instance = null;
         private bool _disposed = false;
         private Grid _grid;
         private Dictionary<Vector3Int, Cell> _boardCells;
@@ -24,20 +23,11 @@ namespace Texell.CandyCoolSummer
         private Vector3Int _startPos;
         private Vector3Int _endPos;
         private SwapStage _swapStage = SwapStage.None;
-        private readonly Queue<bool> _uniqueSwapQueue = new();
+        private bool _uniqueSwapQueue = false;
         private MatchFinding _matchFinding;
 
         private const float SwapSpeed = 10.0f;
 
-        public CandySwapping()
-        {
-            if (s_Instance != null)
-            {
-                Debug.LogError("CandySwapping instance already exists. Cannot create a new one.");
-                return;
-            }
-            s_Instance = this;
-        }
 
         public void Init(Board board, MatchFinding matchFinding)
         {
@@ -51,36 +41,21 @@ namespace Texell.CandyCoolSummer
             _startPos = startPos;
             _endPos = endPos;
 
-            if (_uniqueSwapQueue.Count == 0)
+            if (!_uniqueSwapQueue)
             {
-                _uniqueSwapQueue.Enqueue(true);
+                _uniqueSwapQueue = true;
                 _swapStage = SwapStage.Forward;
             }
-
-            // Only a swap happen at a time.
-            // if (_uniqueSwapQueue.Count == 0 && m_TickingMatch.Count == 0 &&
-            //     m_TickingCells.Count == 0)
-            // {
-            //     _uniqueSwapQueue.Enqueue(true);
-            //     _swapStage = SwapStage.Forward;
-
-            //     // When swap occur, reset hint cells. So next time
-            //     // we will check possible match again.
-            //     _hintCells.Clear();
-            //     Debug.Log("HintClear: " + _hintCells.Count);
-            // }
-
         }
 
         public void OnUpdate()
         {
-            if (_uniqueSwapQueue.Count == 1)
+            if (_uniqueSwapQueue)
             {
                 if (_swapStage == SwapStage.Forward)
                 {
                     var hasStart = _boardCells.TryGetValue(_startPos, out var startCell);
                     var hasEnd = _boardCells.TryGetValue(_endPos, out var endCell);
-
                     if (!hasStart || !startCell.CanBeMoved || !hasEnd || !endCell.CanBeMoved)
                     {
                         return;
@@ -119,7 +94,7 @@ namespace Texell.CandyCoolSummer
                         {
                             // Finish swap
                             _swapStage = SwapStage.None;
-                            _uniqueSwapQueue.Dequeue();
+                            _uniqueSwapQueue = false;
                         }
                     }
                 }
@@ -157,7 +132,7 @@ namespace Texell.CandyCoolSummer
 
                         // Finish swap
                         _swapStage = SwapStage.None;
-                        _uniqueSwapQueue.Dequeue();
+                        _uniqueSwapQueue = false;
                     }
                 }
             }
@@ -167,8 +142,6 @@ namespace Texell.CandyCoolSummer
         {
             if (_disposed) return;
             _disposed = true;
-
-            s_Instance = null;
         }
     }
 

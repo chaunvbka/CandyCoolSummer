@@ -4,8 +4,8 @@ namespace Texell.CandyCoolSummer
 {
     using System.Collections.Generic;
     using Texell.CoreModule;
+    using Unity.Collections;
     using UnityEngine;
-    using UnityEngine.Tilemaps;
 
     public class MatchFinding : MonoBehaviour
     {
@@ -13,6 +13,20 @@ namespace Texell.CandyCoolSummer
         private Dictionary<Vector3Int, Cell> _boardCells;
         private readonly List<Match> _tickingMatch = new();
         private readonly AssetManager _assetManager = AssetManager.Instance;
+
+        // Match finding variable template.
+        NativeList<Vector3Int> matchingCells = new(Allocator.Persistent);
+        NativeList<Vector3Int> candyList = new(Allocator.Persistent);
+        NativeList<Vector3Int> visited = new(Allocator.Persistent);
+        NativeQueue<Vector3Int> nodes = new(Allocator.Persistent);
+        NativeList<Vector3Int> lineFiveShapeMatch = new(Allocator.Persistent);
+        NativeList<Vector3Int> lineFourHShapeMatch = new(Allocator.Persistent);
+        NativeList<Vector3Int> lineFourVShapeMatch = new(Allocator.Persistent);
+        NativeList<Vector3Int> tShapeMatch = new(Allocator.Persistent);
+        NativeList<Vector3Int> lShapeMatch = new(Allocator.Persistent);
+        NativeList<Vector3Int> squareShapeMatch = new(Allocator.Persistent);
+        NativeList<NativeList<Vector3Int>> lineList = new(Allocator.Persistent);
+        NativeList<Vector3Int> shapeList = new(Allocator.Persistent);
 
         public MatchShape LineFiveShape;
         public MatchShape LineFourHShape;
@@ -39,7 +53,6 @@ namespace Texell.CandyCoolSummer
         public bool FindMatch(Vector3Int startPos, Vector3Int direction, bool createMatch = true)
         {
             MatchType matchType = MatchType.LineThree;
-            List<Vector3Int> matchingCells = new();
 
             if (!_boardCells.TryGetValue(startPos, out var startCell) || startCell.ContainingCandy == null)
             {
@@ -55,11 +68,13 @@ namespace Texell.CandyCoolSummer
                 Vector3Int.up, Vector3Int.right, Vector3Int.down, Vector3Int.left
             };
 
-            // First find all the connected candy of the same type.
-            List<Vector3Int> candyList = new();
-            List<Vector3Int> visited = new();
+            matchingCells.Clear();
 
-            Queue<Vector3Int> nodes = new();
+            // First find all the connected candy of the same type.
+            candyList.Clear();
+            visited.Clear();
+            nodes.Clear();
+
             nodes.Enqueue(startPos);
 
             while (nodes.Count > 0)
@@ -85,13 +100,16 @@ namespace Texell.CandyCoolSummer
                 }
             }
 
+            // nodes.Dispose();
+            // visited.Dispose();
+
             //-- Get list cells of shape match.
-            List<Vector3Int> lineFiveShapeMatch = new();
-            List<Vector3Int> lineFourHShapeMatch = new();
-            List<Vector3Int> lineFourVShapeMatch = new();
-            List<Vector3Int> tShapeMatch = new();
-            List<Vector3Int> lShapeMatch = new();
-            List<Vector3Int> squareShapeMatch = new();
+            lineFiveShapeMatch.Clear();
+            lineFourHShapeMatch.Clear();
+            lineFourVShapeMatch.Clear();
+            tShapeMatch.Clear();
+            lShapeMatch.Clear();
+            squareShapeMatch.Clear();
 
             var lineFiveFit = LineFiveShape.FitIn(candyList, ref lineFiveShapeMatch);
             var lineFourHFit = LineFourHShape.FitIn(candyList, ref lineFourHShapeMatch);
@@ -101,7 +119,11 @@ namespace Texell.CandyCoolSummer
             var squareFit = SquareShape.FitIn(candyList, ref squareShapeMatch);
 
             //-- Now we build a list of all line of 3+ candies.
-            List<List<Vector3Int>> lineList = new();
+            foreach (var line in lineList)
+            {
+                line.Dispose();
+            }
+            lineList.Clear();
 
             foreach (var cellPos in candyList)
             {
@@ -111,7 +133,7 @@ namespace Texell.CandyCoolSummer
                 {
                     if (!candyList.Contains(cellPos + dir))
                     {
-                        var currentList = new List<Vector3Int>() { cellPos };
+                        var currentList = new NativeList<Vector3Int>(Allocator.Persistent) { cellPos };
                         var next = cellPos - dir;
                         while (candyList.Contains(next))
                         {
@@ -119,7 +141,7 @@ namespace Texell.CandyCoolSummer
                             next -= dir;
                         }
 
-                        if (currentList.Count >= 3)
+                        if (currentList.Length >= 3)
                         {
                             lineList.Add(currentList);
                         }
@@ -130,14 +152,14 @@ namespace Texell.CandyCoolSummer
             // Determine match type.
             foreach (var line in lineList)
             {
-                if (line.Count == 5)
+                if (line.Length == 5)
                 {
                     matchType = MatchType.LineFive;
                     break;
                 }
             }
 
-            List<Vector3Int> shapeList = new();
+            shapeList.Clear();
             if (lineFiveFit)
             {
                 foreach (var pos in lineFiveShapeMatch)
@@ -240,7 +262,7 @@ namespace Texell.CandyCoolSummer
             }
 
             bool matchFound;
-            if (lineList.Count == 0 && shapeList.Count == 0)
+            if (lineList.Length == 0 && shapeList.Length == 0)
             {
                 matchFound = false;
             }
@@ -294,18 +316,14 @@ namespace Texell.CandyCoolSummer
                 }
             }
 
+
+
             return matchFound;
         }
 
         Match CreateCustomMatch(MatchType type, Vector3Int point, Vector3Int direction)
         {
-            var match = new Match()
-            {
-                DeletionTimer = 0.0f,
-                Type = type,
-                CombinedPoint = point,
-                Direction = direction
-            };
+            var match = new Match(type, point, direction);
 
             var candyType = _boardCells[match.CombinedPoint].ContainingCandy.Type;
             switch (match.Type)
@@ -482,6 +500,29 @@ namespace Texell.CandyCoolSummer
             _tickingMatch.Add(match);
 
             return match;
+        }
+
+        void OnDestroy()
+        {
+            matchingCells.Dispose();
+            candyList.Dispose();
+            visited.Dispose();
+            nodes.Dispose();
+
+            lineFiveShapeMatch.Dispose();
+            lineFourHShapeMatch.Dispose();
+            lineFourVShapeMatch.Dispose();
+            tShapeMatch.Dispose();
+            lShapeMatch.Dispose();
+            squareShapeMatch.Dispose();
+
+            foreach (var line in lineList)
+            {
+                line.Dispose();
+            }
+            lineList.Dispose();
+            shapeList.Dispose();
+
         }
     }
 }

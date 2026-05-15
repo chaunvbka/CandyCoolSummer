@@ -61,7 +61,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Texell.Processes::Texell.CandyCoolSummer.Board
   _tileBoard: {fileID: 8493932461295470456}
-  _tileDesign: {fileID: 2086931302398038718}
+  _tileCandyDesign: {fileID: 2086931302398038718}
+  _tileObstacleDesign: {fileID: 0}
 --- !u!1 &3888670510775693048
 GameObject:
   m_ObjectHideFlags: 0

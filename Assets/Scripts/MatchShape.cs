@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.Collections;
 using UnityEngine;
 
 /// <summary>
@@ -33,7 +34,14 @@ public class MatchShape : ISerializationCallbackReceiver
             Cells.Add(new Vector3Int(0, 0));
         }
 
-        Bounds = GetBoundOf(Cells);
+        NativeList<Vector3Int> tempCells = new(Allocator.Temp);
+        foreach (var cell in Cells)
+        {
+            tempCells.Add(cell);
+        }
+
+        Bounds = GetBoundOf(tempCells);
+        tempCells.Dispose();
 
         //we cache the rotated and mirrored cells, so we can just quickly compare and not recompute them every match.
         Cell90Rot.Clear();
@@ -66,7 +74,7 @@ public class MatchShape : ISerializationCallbackReceiver
     /// <param name="cellList">The list of cells in the match we test against</param>
     /// <param name="matchedCells">This will be filled by the cell this MatchShape used in the cell List if it could fit</param>
     /// <returns>True if the shape could fit, false otherwise</returns>
-    public bool FitIn(List<Vector3Int> cellList, ref List<Vector3Int> matchedCells)
+    public bool FitIn(NativeList<Vector3Int> cellList, ref NativeList<Vector3Int> matchedCells)
     {
         var targetBound = GetBoundOf(cellList);
 
@@ -81,12 +89,12 @@ public class MatchShape : ISerializationCallbackReceiver
         {
             for (int x = targetBound.xMin; x <= targetBound.xMax - smallestBoundSize + 1; ++x)
             {
-                List<Vector3Int> matchingCells = new();
-                List<Vector3Int> matching90Cells = new();
-                List<Vector3Int> matching180Cells = new();
-                List<Vector3Int> matching270Cells = new();
-                List<Vector3Int> matchingHMirrorCells = new();
-                List<Vector3Int> matchingVMirrorCells = new();
+                NativeList<Vector3Int> matchingCells = new(Allocator.Temp);
+                NativeList<Vector3Int> matching90Cells = new(Allocator.Temp);
+                NativeList<Vector3Int> matching180Cells = new(Allocator.Temp);
+                NativeList<Vector3Int> matching270Cells = new(Allocator.Temp);
+                NativeList<Vector3Int> matchingHMirrorCells = new(Allocator.Temp);
+                NativeList<Vector3Int> matchingVMirrorCells = new(Allocator.Temp);
 
 
                 for (int iy = 0; iy <= largestBoundSize; ++iy)
@@ -119,24 +127,24 @@ public class MatchShape : ISerializationCallbackReceiver
                     }
                 }
 
-                List<Vector3Int> usableList = null;
+                NativeList<Vector3Int>? usableList = null;
                 int count = Cells.Count;
-                if (matchingCells.Count == count)
+                if (matchingCells.Length == count)
                 {
                     usableList = matchingCells;
                 }
 
                 if (usableList == null && CanRotate)
                 {
-                    if (matching90Cells.Count == count)
+                    if (matching90Cells.Length == count)
                     {
                         usableList = matching90Cells;
                     }
-                    else if (matching180Cells.Count == count)
+                    else if (matching180Cells.Length == count)
                     {
                         usableList = matching180Cells;
                     }
-                    else if (matching270Cells.Count == count)
+                    else if (matching270Cells.Length == count)
                     {
                         usableList = matching270Cells;
                     }
@@ -144,11 +152,11 @@ public class MatchShape : ISerializationCallbackReceiver
 
                 if (usableList == null && CanMirror)
                 {
-                    if (matchingHMirrorCells.Count == count)
+                    if (matchingHMirrorCells.Length == count)
                     {
                         usableList = matchingHMirrorCells;
                     }
-                    else if (matchingVMirrorCells.Count == count)
+                    else if (matchingVMirrorCells.Length == count)
                     {
                         usableList = matchingVMirrorCells;
                     }
@@ -160,6 +168,14 @@ public class MatchShape : ISerializationCallbackReceiver
                     {
                         matchedCells.Add(cell);
                     }
+
+                    matchingCells.Dispose();
+                    matching90Cells.Dispose();
+                    matching180Cells.Dispose();
+                    matching270Cells.Dispose();
+                    matchingHMirrorCells.Dispose();
+                    matchingVMirrorCells.Dispose();
+                   
                     return true;
                 }
             }
@@ -183,14 +199,14 @@ public class MatchShape : ISerializationCallbackReceiver
     /// </summary>
     /// <param name="cellList">The list of the cells for which to get the bounds</param>
     /// <returns>The bounding rect of all the cells in the cellList</returns>
-    public static RectInt GetBoundOf(List<Vector3Int> cellList)
+    public static RectInt GetBoundOf(NativeList<Vector3Int> cellList)
     {
-        if (cellList.Count == 0)
+        if (cellList.Length == 0)
             return new RectInt(0, 0, 0, 0);
 
-        RectInt rect = new RectInt(cellList[0].x, cellList[0].y, 0, 0);
+        RectInt rect = new(cellList[0].x, cellList[0].y, 0, 0);
 
-        for (int i = 1; i < cellList.Count; ++i)
+        for (int i = 1; i < cellList.Length; ++i)
         {
             var cell = cellList[i];
             if (rect.xMin > cell.x)

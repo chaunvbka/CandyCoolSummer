@@ -4,6 +4,7 @@ namespace Texell.CandyCoolSummer
 {
     using System;
     using System.Collections.Generic;
+    using Unity.Collections;
     using UnityEngine;
 
     public class CandyFalling : IDisposable
@@ -17,7 +18,7 @@ namespace Texell.CandyCoolSummer
 
         private List<Vector3Int> _emptyCells;
         private MatchFinding _matchFinding;
-        private HintIndicator _hintIdicator;
+        private HintIndicator _hintIndicator;
 
         private List<Vector3Int> _tickingCells = new();
         private List<Vector3Int> _fallingCells = new();
@@ -32,14 +33,15 @@ namespace Texell.CandyCoolSummer
 
             _emptyCells = deleting.EmptyCells;
             _matchFinding = finding;
-            _hintIdicator = hint;
+            _hintIndicator = hint;
+            _hintIndicator.HintTrigger = true;
         }
 
         public void OnUpdate()
         {
             if (_emptyCells.Count > 0)
             {
-               _hintIdicator.PickedHints.Clear();
+                _hintIndicator.PickedHints.Clear();
 
                 EmptyCheck();
             }
@@ -55,19 +57,21 @@ namespace Texell.CandyCoolSummer
                 MoveCandies();
             }
 
-            if (_fallingCells.Count == 0 && _tickingCells.Count == 0)
+            if (_emptyCells.Count == 0 && _fallingCells.Count == 0 && _tickingCells.Count == 0)
             {
                 if (_fallingCellsToFindMatch.Count > 0)
                 {
                     FindMatchFalling();
                 }
-                else
-                {
-                    if (_hintIdicator.PickedHints.Count == 0)
-                        _hintIdicator.FindHintCells();
-                }
             }
 
+            // if (_hintIndicator.HintTrigger)
+            // {
+            //     Debug.Log("FindHintCells");
+            //     _hintIndicator.FindHintCells();
+
+            //     _hintIndicator.HintTrigger = false;
+            // }
         }
 
         void MoveCandies()
@@ -100,7 +104,7 @@ namespace Texell.CandyCoolSummer
                 }
 
                 // When candy fall, disable hint.
-                _hintIdicator.StopHint();
+                _hintIndicator.StopHint();
 
                 //update either position or state.
                 if (currentCell.IncomingCandy != null && currentCell.IncomingCandy.CurrentState == Candy.State.Falling)
@@ -141,8 +145,8 @@ namespace Texell.CandyCoolSummer
                             _emptyCells.Remove(target);
                             _emptyCells.Add(cellPos);
 
-                            //if we continue falling, this is now an empty space, if there is a gem above it will fall by itself
-                            //but if this is a spawner above, we need to spawn a new gem
+                            //if we continue falling, this is now an empty space, if there is a candy above it will fall by itself
+                            //but if this is a spawner above, we need to spawn a new candy
                             if (_spawnerPositions.Contains(cellPos + Vector3Int.up))
                             {
                                 ActivateSpawnerAt(cellPos);
@@ -165,8 +169,8 @@ namespace Texell.CandyCoolSummer
                             _emptyCells.Remove(target);
                             _emptyCells.Add(cellPos);
 
-                            //if we continue falling, this is now an empty space, if there is a gem above it will fall by itself
-                            //but if this is a spawner above, we need to spawn a new gem
+                            //if we continue falling, this is now an empty space, if there is a candy above it will fall by itself
+                            //but if this is a spawner above, we need to spawn a new candy
                             if (_spawnerPositions.Contains(cellPos + Vector3Int.up))
                             {
                                 ActivateSpawnerAt(cellPos);
@@ -187,8 +191,8 @@ namespace Texell.CandyCoolSummer
                             _emptyCells.Remove(target);
                             _emptyCells.Add(cellPos);
 
-                            //if we continue falling, this is now an empty space, if there is a gem above it will fall by itself
-                            //but if this is a spawner above, we need to spawn a new gem
+                            //if we continue falling, this is now an empty space, if there is a candy above it will fall by itself
+                            //but if this is a spawner above, we need to spawn a new candy
                             if (_spawnerPositions.Contains(cellPos + Vector3Int.up))
                             {
                                 ActivateSpawnerAt(cellPos);
@@ -236,7 +240,7 @@ namespace Texell.CandyCoolSummer
                     //a ticking cells should only be falling or bouncing, if neither of those, remove it 
                     _fallingCells.RemoveAt(i);
                     i--;
-                    
+
                     if (!_fallingCellsToFindMatch.Contains(cellPos))
                         _fallingCellsToFindMatch.Add(cellPos);
                 }
@@ -248,18 +252,25 @@ namespace Texell.CandyCoolSummer
         /// </summary>
         void FindMatchFalling()
         {
-            bool matchFound = false;
+            int matchCount = 0;
+
             foreach (var cellPos in _fallingCellsToFindMatch)
             {
                 // Find match with no direction.
-                matchFound = _matchFinding.FindMatch(cellPos, Vector3Int.zero);
+                bool matchFound = _matchFinding.FindMatch(cellPos, Vector3Int.zero);
+                if (matchFound)
+                {
+                    matchCount++;
+                }
             }
 
             _fallingCellsToFindMatch.Clear();
-            if (!matchFound)
+            if (matchCount == 0)
             {
+                _hintIndicator.HintTrigger = true;
+
                 BoardInput.UnblockInput();
-                _hintIdicator.StartHint();
+                _hintIndicator.StartHint();
             }
         }
 
@@ -336,7 +347,7 @@ namespace Texell.CandyCoolSummer
                 else if (_spawnerPositions.Contains(aboveCellPos))
                 {
                     ActivateSpawnerAt(emptyCellPos);
-                    Debug.Log("ActivateSpawnerAt: aboveCellPos.");
+                    //Debug.Log("ActivateSpawnerAt: aboveCellPos.");
                 }
 
             }

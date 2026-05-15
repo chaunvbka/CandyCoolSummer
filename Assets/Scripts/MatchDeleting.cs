@@ -4,6 +4,7 @@ namespace Texell.CandyCoolSummer
 {
     using System;
     using System.Collections.Generic;
+    using Unity.Collections;
     using UnityEngine;
 
     public class MatchDeleting : IDisposable
@@ -15,6 +16,7 @@ namespace Texell.CandyCoolSummer
         private List<Match> _tickingMatch;
         private readonly List<Vector3Int> _emptyCells = new();
         private IHintAction _hintAction;
+        private const float DeletionSpeed = 1.0f / 0.3f;
 
         public List<Vector3Int> EmptyCells => _emptyCells;
 
@@ -34,7 +36,6 @@ namespace Texell.CandyCoolSummer
                 BoardInput.BlockInput();
                 DeleteMatchs();
             }
-
         }
 
         void DeleteMatchs()
@@ -43,10 +44,9 @@ namespace Texell.CandyCoolSummer
             {
                 var match = _tickingMatch[i];
 
-                const float DeletionSpeed = 1.0f / 0.3f;
-                match.DeletionTimer += Time.deltaTime * DeletionSpeed;
+                match.DeletionTimer[0] += Time.deltaTime * DeletionSpeed;
 
-                for (int j = 0; j < match.MatchingCells.Count; j++)
+                for (int j = 0; j < match.MatchingCells.Length; j++)
                 {
                     var cellPos = match.MatchingCells[j];
                     var candy = _boardCells[cellPos].ContainingCandy;
@@ -66,7 +66,7 @@ namespace Texell.CandyCoolSummer
                     }
 
                     //forced deletion doesn't wait for end of timer
-                    if (match.ForcedDeletion || match.DeletionTimer > 1.0f)
+                    if (match.ForcedDeletion || match.DeletionTimer[0] > 1.0f)
                     {
                         candy.CurrentMatch = null;
                         CandyFactory.Destroy(candy);
@@ -125,14 +125,14 @@ namespace Texell.CandyCoolSummer
                     }
                 }
 
-                if (match.MatchingCells.Count == 0)
+
+                if (match.MatchingCells.Length == 0)
                 {
+                    match.Dispose();
                     _tickingMatch.RemoveAt(i);
                     i--;
                 }
             }
-
-            Debug.Log("_tickingMatch.Count = " + _tickingMatch.Count);
         }
 
         void SpawnCombinedCandy(Vector3Int cellPos, Candy prefab)

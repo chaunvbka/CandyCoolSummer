@@ -144,8 +144,10 @@ namespace Texell.CandyCoolSummer
 
         void Init()
         {
-            _tileCandyDesign.gameObject.SetActive(false);
-            _tileObstacleDesign.gameObject.SetActive(false);
+            if (_tileCandyDesign != null)
+                _tileCandyDesign.gameObject.SetActive(false);
+            if (_tileObstacleDesign != null)
+                _tileObstacleDesign.gameObject.SetActive(false);
 
             for (int i = 0; i < 6; i++)
             {
@@ -217,7 +219,7 @@ namespace Texell.CandyCoolSummer
         public void CheckNoMatch(Vector3Int cellPos)
         {
             List<Candy.ColorType> listTypes = new();
-            foreach(var entry in _candyLookup)
+            foreach (var entry in _candyLookup)
             {
                 listTypes.Add(entry.Key);
             }

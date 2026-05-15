@@ -5,6 +5,7 @@ namespace Texell.CandyCoolSummer
 
     using System;
     using System.Collections.Generic;
+    using Unity.Collections;
     using UnityEngine;
 
     public class HintIndicator : IDisposable, IHintAction
@@ -16,8 +17,8 @@ namespace Texell.CandyCoolSummer
         private Board _board;
         private MatchFinding _matchFinding;
 
-        private List<Vector3Int> _pickedHints = new();
-        private readonly List<List<Vector3Int>> _possibleMatchs = new();
+        private readonly List<Vector3Int> _pickedHints = new();
+        private readonly List<NativeList<Vector3Int>> _possibleMatchs = new();
         private List<Vector3Int> _matchedCells;
         private float _timeAppearHint = 0.0f;
         /// <summary>
@@ -25,10 +26,15 @@ namespace Texell.CandyCoolSummer
         /// </summary>
         private bool _enableHint;
         private const float AppearHintDuration = 1;
-        private float[] timers;
+        private NativeArray<float> timers;
         private const float HintSpeed = 3;
 
+        // Reshuffle
+        private readonly List<Candy> _candies = new();
+        private readonly List<Vector3Int> _cellPos = new();
 
+        // Trigger find hint cells on Update.
+        public bool HintTrigger;
         public List<Vector3Int> PickedHints => _pickedHints;
 
 
@@ -57,17 +63,34 @@ namespace Texell.CandyCoolSummer
                     }
                 }
             }
+
+            if (HintTrigger)
+            {
+                FindAllPossibleMatch();
+
+                if (_possibleMatchs.Count == 0)
+                {
+                    Debug.LogWarning("Reshuffle");
+                    ReshuffleBoard();
+                    HintTrigger = true;
+                }
+                else
+                {
+                    StartHint();
+                    HintTrigger = false;
+                }
+            }
         }
 
         public void FindHintCells()
         {
-            //Debug.Log("FindHintCells");
             FindAllPossibleMatch();
 
             if (_possibleMatchs.Count == 0)
             {
                 Debug.LogWarning("Reshuffle");
                 ReshuffleBoard();
+                HintTrigger = true;
             }
             else
             {
@@ -88,6 +111,10 @@ namespace Texell.CandyCoolSummer
 
         void FindAllPossibleMatch()
         {
+            foreach (var match in _possibleMatchs)
+            {
+                match.Dispose();
+            }
             _possibleMatchs.Clear();
 
             foreach (var entry in _boardCells)
@@ -220,7 +247,7 @@ namespace Texell.CandyCoolSummer
 
                 if (possibleMatch)
                 {
-                    var temp = new List<Vector3Int>();
+                    var temp = new NativeList<Vector3Int>(Allocator.Persistent);
                     foreach (var pos in _matchedCells)
                     {
                         temp.Add(pos);
@@ -230,8 +257,18 @@ namespace Texell.CandyCoolSummer
                 }
             }
 
-            _pickedHints = _possibleMatchs[UnityEngine.Random.Range(0, _possibleMatchs.Count)];
-            timers = new float[_pickedHints.Count];
+            if (_possibleMatchs.Count > 0)
+            {
+                int count = _possibleMatchs.Count;
+                _pickedHints.Clear();
+                timers.Dispose();
+                NativeList<Vector3Int> pickedCells = _possibleMatchs[UnityEngine.Random.Range(0, count)];
+                foreach (var pos in pickedCells)
+                {
+                    _pickedHints.Add(pos);
+                }
+                timers = new NativeArray<float>(_pickedHints.Count, Allocator.Persistent);
+            }
         }
 
         void HintAnimation()
@@ -271,29 +308,30 @@ namespace Texell.CandyCoolSummer
 
         void ReshuffleBoard()
         {
-            List<Candy> candies = new();
-            List<Vector3Int> listPos = new();
+            _candies.Clear();
+            _cellPos.Clear();
+
             foreach (var entry in _boardCells)
             {
                 if (entry.Value.CanBeMoved)
                 {
-                    candies.Add(entry.Value.ContainingCandy);
-                    listPos.Add(entry.Key);
+                    _candies.Add(entry.Value.ContainingCandy);
+                    _cellPos.Add(entry.Key);
                 }
             }
 
-            foreach (var pos in listPos)
+            foreach (var pos in _cellPos)
             {
-                int index = UnityEngine.Random.Range(0, candies.Count);
-                var candy = candies[index];
+                int index = UnityEngine.Random.Range(0, _candies.Count);
+                var candy = _candies[index];
                 candy.transform.position = _grid.GetCellCenterWorld(pos);
                 _boardCells[pos].ContainingCandy = candy;
 
-                candies.RemoveAt(index);
+                _candies.RemoveAt(index);
             }
 
             // Make sure don't has a match.
-            foreach (var pos in listPos)
+            foreach (var pos in _cellPos)
             {
                 _board.CheckNoMatch(pos);
             }
@@ -303,6 +341,14 @@ namespace Texell.CandyCoolSummer
         {
             if (_disposed) return;
             _disposed = true;
+
+            foreach (var match in _possibleMatchs)
+            {
+                match.Dispose();
+            }
+            _possibleMatchs.Clear();
+
+            timers.Dispose();
         }
     }
 

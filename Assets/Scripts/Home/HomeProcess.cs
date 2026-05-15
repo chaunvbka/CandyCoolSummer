@@ -55,7 +55,6 @@ namespace Texell.Processes
             _uiManager?.Clear();
             _model?.Dispose();
             Resources.UnloadUnusedAssets();
-            System.GC.Collect();
         }
     }
 }

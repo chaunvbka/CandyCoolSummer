@@ -87,15 +87,6 @@ namespace Texell.Processes
             _hintIndicator.OnUpdate();
         }
 
-        void Clear()
-        {
-            if (_board != null)
-            {
-                Object.Destroy(_board.gameObject);
-                _board = null;
-            }
-        }
-
         public void OnExit()
         {
             //UnregisterEvents();
@@ -119,7 +110,6 @@ namespace Texell.Processes
             _hintIndicator.Dispose();
 
             Resources.UnloadUnusedAssets();
-            System.GC.Collect();
         }
     }
 }

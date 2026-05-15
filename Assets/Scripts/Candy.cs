@@ -85,7 +85,7 @@ namespace Texell.CandyCoolSummer
         [HideInInspector]
         public float SpeedMultiplier = 1.0f;
 
-        public Match CurrentMatch;
+        public Match? CurrentMatch;
 
         protected bool _canMove;
         

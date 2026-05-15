@@ -1,6 +1,7 @@
 #if UNITY_EDITOR
 
 using System.Collections.Generic;
+using Unity.Collections;
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
@@ -65,7 +66,7 @@ public class MatchShapePropertyDrawer : PropertyDrawer
 
         //need to rebuild the list as we only have access to serializedProperty and easier to work with an array lower
         var cells = property.FindPropertyRelative(nameof(MatchShape.Cells));
-        List<Vector3Int> rebuiltCells = new();
+        NativeList<Vector3Int> rebuiltCells = new(Allocator.Temp);
 
         for (int i = 0; i < cells.arraySize; ++i)
         {
@@ -144,6 +145,8 @@ public class MatchShapePropertyDrawer : PropertyDrawer
                 line.Add(newElem);
             }
         }
+
+        rebuiltCells.Dispose();
     }
 
     void RemoveCell(SerializedProperty property, int index)

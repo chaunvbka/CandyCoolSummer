@@ -2,7 +2,8 @@
 
 namespace Texell.CandyCoolSummer
 {
-    using System.Collections.Generic;
+    using System;
+    using Unity.Collections;
     using UnityEngine;
 
     public enum MatchType
@@ -15,18 +16,17 @@ namespace Texell.CandyCoolSummer
         SquareShape
     }
 
-    [System.Serializable]
-    public class Match
+    public struct Match : IDisposable
     {
         /// <summary>
         /// List of cell position in a match.
         /// </summary>
-        public List<Vector3Int> MatchingCells = new();
+        public NativeList<Vector3Int> MatchingCells;
 
-        public float DeletionTimer = 0.0f;
+        public NativeArray<float> DeletionTimer;
 
         //this is forced deletion, usually from a bonus. Used to remove obstacle
-        public bool ForcedDeletion = false;
+        public bool ForcedDeletion;
 
         public MatchType Type;
 
@@ -42,13 +42,30 @@ namespace Texell.CandyCoolSummer
         /// </summary>
         public Candy CombinedPrefab;
 
-        public void AddCandy(Candy candy)
+        public Match(MatchType type, Vector3Int point, Vector3Int direction)
+        {
+            MatchingCells = new(Allocator.Persistent);
+            DeletionTimer = new(1, Allocator.Persistent);
+            ForcedDeletion = false;
+            Type = type;
+            Direction = direction;
+            CombinedPoint = point;
+            CombinedPrefab = null;
+        }
+
+        public readonly void AddCandy(Candy candy)
         {
             if (candy.CurrentMatch != null)
                 return;
 
             MatchingCells.Add(candy.CurrentPosition);
             candy.CurrentMatch = this;
+        }
+
+        public void Dispose()
+        {
+            MatchingCells.Dispose();
+            DeletionTimer.Dispose();
         }
     }
 }

@@ -89,7 +89,6 @@ namespace Texell.Processes
             _processManager.DestroyLoading();
             
             Resources.UnloadUnusedAssets();
-            System.GC.Collect();
         }
     }
 }
